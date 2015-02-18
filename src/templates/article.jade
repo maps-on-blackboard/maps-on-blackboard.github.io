@@ -5,7 +5,7 @@ block append vars
   - bodyclass = 'article-detail'
 
 block prepend title
-  | #{ page.title + " - "}
+| #{ page.title + " - "}
 
 block header
   include author
@@ -17,6 +17,19 @@ block header
 block content
   article.article
     section.content!= typogr(page.html).typogrify()
+
+// - disqus
+#disqus_thread
+| <script type="text/javascript">
+| var disqus_shortname = 'mapsonblackboardgithubio';
+| (function() {
+|    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+|    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+|    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+| })();
+| </script>
+| <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+| <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 block prepend footer
   div.nav
