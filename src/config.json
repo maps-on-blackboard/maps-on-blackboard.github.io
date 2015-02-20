@@ -2,7 +2,7 @@
   "output": "../",
   "locals": {
     "url": "http://maps-on-blackboard.com",
-    "name": "maps on blackboard",
+    "name": "Maps on Blackboard",
     "owner": "Gagan Bansal",
     "description": "Learn how to create maps for websites with lot of flexibility"
   },

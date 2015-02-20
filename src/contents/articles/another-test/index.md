@@ -10,7 +10,7 @@ The theme used is tomorrow, you can find more themes [here](http://jmblog.github
 
 <span class="more"></span>
 
-### JavaScript
+#### JavaScript
 
 ```javascript
 function getRandomNumber() {
@@ -19,7 +19,7 @@ function getRandomNumber() {
 }
 ```
 
-### CoffeeScript
+**CoffeeScript**
 
 ```coffeescript
 class Animal
