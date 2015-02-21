@@ -5,9 +5,31 @@
     <atom:link href="http://maps-on-blackboard.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://maps-on-blackboard.com</link>
     <description>Learn how to create maps for websites with lot of flexibility</description>
-    <pubDate>Mon, 29 Apr 2013 20:00:00 -0400</pubDate>
+    <pubDate>Thu, 19 Feb 2015 19:00:00 -0500</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Just testing the map</title>
+      <link>http://maps-on-blackboard.com/articles/map-test/</link>
+      <pubDate>Thu, 19 Feb 2015 19:00:00 -0500</pubDate>
+      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/map-test/</guid>
+      <author></author>
+      <description>&lt;p&gt;Createing map with geojson2svg&lt;/p&gt;
+&lt;div id=&quot;test&quot;&gt;do test&lt;/div&gt; 
+&lt;div id=&quot;mapArea&quot; style=&quot;width:800px;height:800px;&quot;&gt;
+&lt;svg id=&quot;map&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;
+width=&quot;800&quot; height=&quot;800&quot; x=&quot;0&quot; y=&quot;0&quot; &gt;
+&lt;/svg&gt;
+&lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;//cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.2/proj4.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./js/reproject.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./js/getjson.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/geojson2svg/0.1.2/geojson2svg.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./js/world.js&quot;&gt;&lt;/script&gt;
+&lt;script type='text/javascript' src='main.js'&gt;&lt;/script&gt; 
+</description>
+    </item>
     <item>
       <title>README</title>
       <link>http://maps-on-blackboard.com/articles/hello-world/</link>
