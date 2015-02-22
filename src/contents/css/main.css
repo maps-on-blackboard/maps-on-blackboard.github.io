@@ -332,40 +332,160 @@ code.lang-markdown .bullet {
 }
 
 
-/* Tomorrow Night Theme */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-/* Original theme - https://github.com/chriskempson/tomorrow-theme */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-.tomorrow-comment, pre .comment, pre .title {
-  color: #969896;
+/*
+
+Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-license.org/
+
+*/
+/*
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #23241f;
+  -webkit-text-size-adjust: none;
+}
+*/
+
+/*.hljs,*/
+.tag,
+.css .rules,
+.css .value,
+.aspectj .function,
+.css .function
+.preprocessor,
+.pragma {
+  color: #f8f8f2;
 }
 
-.tomorrow-red, pre .variable, pre .attribute, pre .tag, pre .regexp, pre .ruby .constant, pre .xml .tag .title, pre .xml .pi, pre .xml .doctype, pre .html .doctype, pre .css .id, pre .css .class, pre .css .pseudo {
-  color: #cc6666;
+.strongemphasis,
+.strong,
+.emphasis {
+  color: #a8a8a2;
 }
 
-.tomorrow-orange, pre .number, pre .preprocessor, pre .built_in, pre .literal, pre .params, pre .constant {
-  color: #de935f;
+.bullet,
+.blockquote,
+.horizontal_rule,
+.number,
+.regexp,
+.alias .keyword,
+.literal,
+.hexcolor {
+  color: #ae81ff;
 }
 
-.tomorrow-yellow, pre .class, pre .ruby .class .title, pre .css .rules .attribute {
-  color: #f0c674;
+.tag .value,
+.code,
+.title,
+.css .class,
+.class .title:last-child {
+  color: #a6e22e;
 }
 
-.tomorrow-green, pre .string, pre .value, pre .inheritance, pre .header, pre .ruby .symbol, pre .xml .cdata {
-  color: #b5bd68;
+.link_url {
+  font-size: 80%;
 }
 
-.tomorrow-aqua, pre .css .hexcolor {
-  color: #8abeb7;
+.strong,
+.strongemphasis {
+  font-weight: bold;
 }
 
-.tomorrow-blue, pre .function, pre .python .decorator, pre .python .title, pre .ruby .function .title, pre .ruby .title .keyword, pre .perl .sub, pre .javascript .title, pre .coffeescript .title {
-  color: #81a2be;
+.emphasis,
+.strongemphasis,
+.class .title:last-child,
+.typename {
+  font-style: italic;
 }
 
-.tomorrow-purple, pre .keyword, pre .javascript .function {
-  color: #b294bb;
+.keyword,
+.ruby .class .keyword:first-child,
+.ruby .function .keyword,
+/*.function,*/
+.change,
+.winutils,
+.flow,
+.nginx .title,
+.tex .special,
+/*.header,*/
+.attribute,
+.symbol,
+.symbol .string,
+.tag .title,
+.value,
+.alias .keyword:first-child,
+.css .tag,
+.css .unit,
+.css .important {
+  color: #f92672;
+}
+
+.function .keyword,
+.class .keyword:first-child,
+.aspect .keyword:first-child,
+.constant,
+.typename,
+.css .attribute {
+  color: #66d9ef;
+}
+
+.variable,
+.params,
+.class .title,
+.aspect .title {
+  color: #f8f8f2;
+}
+
+.string,
+.css .id,
+.subst,
+.type,
+.ruby .class .parent,
+.built_in,
+.django .template_tag,
+.django .variable,
+.smalltalk .class,
+.django .filter .argument,
+.smalltalk .localvars,
+.smalltalk .array,
+.attr_selector,
+.pseudo,
+.addition,
+.stream,
+.envvar,
+.apache .tag,
+.apache .cbracket,
+.tex .command,
+.prompt,
+.link_label,
+.link_url {
+  color: #e6db74;
+}
+
+.comment,
+.javadoc,
+.annotation,
+.decorator,
+.pi,
+.doctype,
+.deletion,
+.shebang,
+.apache .sqbracket,
+.tex .formula {
+  color: #75715e;
+}
+
+.coffeescript .javascript,
+.javascript .xml,
+.tex .formula,
+.xml .javascript,
+.xml .vbscript,
+.xml .css,
+.xml .cdata,
+.xml .php,
+.php .xml {
+  opacity: 0.5;
 }
 
 pre code {
