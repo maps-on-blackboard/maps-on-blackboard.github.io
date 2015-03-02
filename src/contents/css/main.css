@@ -601,3 +601,14 @@ pre code {
   font-weight: normal;
   font-style: normal;
 }
+
+#maps-on-blackboard
+
+.blackboard{
+  background: url('/img/blackboard.jpg') no-repeat;
+  background-size: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+

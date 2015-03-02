@@ -10,24 +10,17 @@
     <language>en</language>
     <item>
       <title>Just testing the map</title>
-      <link>http://maps-on-blackboard.com/articles/map-test/</link>
+      <link>http://maps-on-blackboard.com/articles/basic-map-test/</link>
       <pubDate>Thu, 19 Feb 2015 19:00:00 -0500</pubDate>
-      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/map-test/</guid>
+      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/basic-map-test/</guid>
       <author></author>
       <description>&lt;p&gt;Createing map with geojson2svg&lt;/p&gt;
-&lt;div id=&quot;test&quot;&gt;do test&lt;/div&gt; 
-&lt;div id=&quot;mapArea&quot; style=&quot;width:800px;height:800px;&quot;&gt;
-&lt;svg id=&quot;map&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;
-width=&quot;800&quot; height=&quot;800&quot; x=&quot;0&quot; y=&quot;0&quot; &gt;
-&lt;/svg&gt;
-&lt;/div&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;//cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.2/proj4.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;./js/reproject.min.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;./js/getjson.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/geojson2svg/0.1.2/geojson2svg.min.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;./js/world.js&quot;&gt;&lt;/script&gt;
-&lt;script type='text/javascript' src='main.js'&gt;&lt;/script&gt; 
+&lt;p&gt;&lt;div id=&quot;test&quot;&gt;do test&lt;/div&gt; 
+    &lt;div id=&quot;mapArea&quot; class=&quot;blackboard&quot; style=&quot;width: 100%;height:100%;border: 1px solid #c0c0c0;&quot;&gt; 
+      &lt;svg id=&quot;map&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;
+        width=&quot;100%&quot; height=&quot;100%&quot; x=&quot;0&quot; y=&quot;0&quot; &gt;
+      &lt;/svg&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;./js/build.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
 </description>
     </item>
     <item>
@@ -139,6 +132,32 @@ The theme used is tomorrow, you can find more themes &lt;a href=&quot;http://jmb
 &lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;getRandomNumber&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; {&lt;/span&gt;
     &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;; &lt;span class=&quot;comment&quot;&gt;// chosen by fair dice roll.&lt;/span&gt;
               &lt;span class=&quot;comment&quot;&gt;// guaranteed to be random.&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;another javascript test&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;handlePan&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(ev)&lt;/span&gt; {&lt;/span&gt;
+  &lt;span class=&quot;comment&quot;&gt;/*var top = (startY + evt.deltaY) + 'px';
+  var left = (startX + evt.deltaX) + 'px';
+  //console.log('pan x: '+ left + ', y: '+ top);
+  cont.style.top = top;
+  cont.style.left = left;*/&lt;/span&gt;
+  cont.style.top = (contPos.top + ev.deltaY) + &lt;span class=&quot;string&quot;&gt;'px'&lt;/span&gt;;
+  cont.style.left = (contPos.left + ev.deltaX) + &lt;span class=&quot;string&quot;&gt;'px'&lt;/span&gt;;
+}
+&lt;span class=&quot;comment&quot;&gt;// load map tile images once you pan &lt;/span&gt;
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;loadTiles&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(tiles)&lt;/span&gt; {&lt;/span&gt;
+  cont.innerHTML = &lt;span class=&quot;string&quot;&gt;''&lt;/span&gt;;
+  console.log(&lt;span class=&quot;string&quot;&gt;'map extent: '&lt;/span&gt;+ &lt;span class=&quot;built_in&quot;&gt;JSON&lt;/span&gt;.stringify(mapExtent)); 
+  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; tiles = webMercatorTiles(mapExtent, zoom);
+  tiles.forEach(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(t)&lt;/span&gt; {&lt;/span&gt;
+    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; img = document.createElement(&lt;span class=&quot;string&quot;&gt;'img'&lt;/span&gt;);
+    img.src = baseURL + &lt;span class=&quot;string&quot;&gt;'/'&lt;/span&gt;+ t.Z + &lt;span class=&quot;string&quot;&gt;'/'&lt;/span&gt; + t.X + &lt;span class=&quot;string&quot;&gt;'/'&lt;/span&gt; + t.Y + &lt;span class=&quot;string&quot;&gt;'.png'&lt;/span&gt;;
+    img.style = &lt;span class=&quot;string&quot;&gt;'left:'&lt;/span&gt;+ (t.left - contPos.left) 
+      + &lt;span class=&quot;string&quot;&gt;'px;top:'&lt;/span&gt; + (t.top - contPos.top) +&lt;span class=&quot;string&quot;&gt;'px;'&lt;/span&gt;;
+    img.setAttribute(&lt;span class=&quot;string&quot;&gt;'class'&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;'tile'&lt;/span&gt;);
+    cont.appendChild(img);
+  });
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; somthing;
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;CoffeeScript&lt;/strong&gt;&lt;/p&gt;

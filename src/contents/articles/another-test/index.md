@@ -18,7 +18,35 @@ function getRandomNumber() {
               // guaranteed to be random.
 }
 ```
+another javascript test
 
+```javascript
+function handlePan(ev) {
+  /*var top = (startY + evt.deltaY) + 'px';
+  var left = (startX + evt.deltaX) + 'px';
+  //console.log('pan x: '+ left + ', y: '+ top);
+  cont.style.top = top;
+  cont.style.left = left;*/
+  cont.style.top = (contPos.top + ev.deltaY) + 'px';
+  cont.style.left = (contPos.left + ev.deltaX) + 'px';
+}
+// load map tile images once you pan 
+function loadTiles(tiles) {
+  cont.innerHTML = '';
+  console.log('map extent: '+ JSON.stringify(mapExtent)); 
+  var tiles = webMercatorTiles(mapExtent, zoom);
+  tiles.forEach(function(t) {
+    var img = document.createElement('img');
+    img.src = baseURL + '/'+ t.Z + '/' + t.X + '/' + t.Y + '.png';
+    img.style = 'left:'+ (t.left - contPos.left) 
+      + 'px;top:' + (t.top - contPos.top) +'px;';
+    img.setAttribute('class','tile');
+    cont.appendChild(img);
+  });
+  return somthing;
+}
+
+```
 **CoffeeScript**
 
 ```coffeescript

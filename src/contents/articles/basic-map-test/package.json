@@ -1,0 +1,27 @@
+{
+  "name": "map1-svg-map",
+  "version": "0.0.0",
+  "description": "simple svg map of world using geojson2svg",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "geojson",
+    "svg",
+    "maps",
+    "geojson2svg"
+  ],
+  "author": "Gagan Bansal <gaganbansal123@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "geojson2svg": "^0.1.4",
+    "get-json-data": "0.0.6",
+    "parse-svg": "0.0.0",
+    "proj4": "^2.3.3",
+    "proj4js": "^10.0.0",
+    "reproject": "^0.1.1",
+    "reproject-spherical-mercator": "0.0.0",
+    "sphericalmercator": "^1.0.3"
+  }
+}

@@ -30,6 +30,32 @@ The theme used is tomorrow, you can find more themes <a href="http://jmblog.gith
               <span class="comment">// guaranteed to be random.</span>
 }
 </code></pre>
+<p>another javascript&nbsp;test</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">handlePan</span><span class="params">(ev)</span> {</span>
+  <span class="comment">/*var top = (startY + evt.deltaY) + 'px';
+  var left = (startX + evt.deltaX) + 'px';
+  //console.log('pan x: '+ left + ', y: '+ top);
+  cont.style.top = top;
+  cont.style.left = left;*/</span>
+  cont.style.top = (contPos.top + ev.deltaY) + <span class="string">'px'</span>;
+  cont.style.left = (contPos.left + ev.deltaX) + <span class="string">'px'</span>;
+}
+<span class="comment">// load map tile images once you pan </span>
+<span class="function"><span class="keyword">function</span> <span class="title">loadTiles</span><span class="params">(tiles)</span> {</span>
+  cont.innerHTML = <span class="string">''</span>;
+  console.log(<span class="string">'map extent: '</span>+ <span class="built_in"><span class="caps">JSON</span></span>.stringify(mapExtent)); 
+  <span class="keyword">var</span> tiles = webMercatorTiles(mapExtent, zoom);
+  tiles.forEach(<span class="function"><span class="keyword">function</span><span class="params">(t)</span> {</span>
+    <span class="keyword">var</span> img = document.createElement(<span class="string">'img'</span>);
+    img.src = baseURL + <span class="string">'/'</span>+ t.Z + <span class="string">'/'</span> + t.X + <span class="string">'/'</span> + t.Y + <span class="string">'.png'</span>;
+    img.style = <span class="string">'left:'</span>+ (t.left - contPos.left) 
+      + <span class="string">'px;top:'</span> + (t.top - contPos.top) +<span class="string">'px;'</span>;
+    img.setAttribute(<span class="string">'class'</span>,<span class="string">'tile'</span>);
+    cont.appendChild(img);
+  });
+  <span class="keyword">return</span> somthing;
+}
+</code></pre>
 <p><strong>CoffeeScript</strong></p>
 <pre><code class="lang-coffeescript"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>
   <span class="comment">### Intellegent design ###</span>
