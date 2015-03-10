@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>Maps on Blackboard
+    </title>
+    <link rel="alternate" href="http://maps-on-blackboard.com/feed.xml" type="application/rss+xml" title="Learn how to create online maps with lot of flexibility">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body class="article-detail">
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Basic map with geojson2svg</h1>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Now a days its very easy to publish a map using online <span class="caps">API</span> like Google maps or using open framework OpenLayers or Leaflet with OSM data. Mapbox and CartoDB make the map publishing even more simplified. So where does this tool <a href="https://github.com/gagan-bansal/geojson2svg">geojson2svg</a> stands in mapping&nbsp;domain?</p>
+<h2 id="-"> </h2>
+<p>To understand this first let us go through the components involved in online maps publishing. Here we are considering only maps creation or rendering on browser with <span class="caps">HTML</span>, JavaScript and SVG. Maps publishing with static image tiles is different concept, map created with Mapbox is an example of this. Here is an <a href="http://www.nytimes.com/2014/08/16/upshot/mapping-migration-in-the-united-states-since-1900.html?abt=0002&amp;abg=0">example</a> of online map using JavaScript components by The New York Times. So there are different scenarios where each of the method has advantages over other. Generally for data visualization on maps JavaScript components are preferred due to dynamic rendering and  interaction capabilities&nbsp;.</p>
+<p>Now let us break up the map publishing with JavaScript into different components. The first one is geographic data itself, there are many open data source for spatial data. Important thing is the format that is supported by JavaScript and obvious choice is GeoJSON. Third (yes second after this) component is rendering of geographic or geometry features. To draw geometry features, <span class="caps">SVG</span> supports all type of shapes and styling functionality as well. Now the only thing required is conversion from GeoJSON to SVG, yes this is the second component.  <a href="https://github.com/gagan-bansal/geojson2svg">geojson2svg</a> serves this purpose. There is forth and the last component navigation i.e. zoom and pan. To visualize the data of higher depth map navigation helps a lot like showing population for different administrative&nbsp;levels. </p>
+<p>In this blog series I will demonstrate how a map can be published with different open source modules keeping in mind above mentioned four components. This approach gives flexibility to developers to choose and play with the component of their choice like there are many <span class="caps">SVG</span> tools and library for drawing and styling. Easily different animations also can be&nbsp;achieved.</p>
+<p>To start with here we<single quote>ll draw a plain map using geojson. Here is the map container&nbsp;div:</p>
+<pre><code class="lang-html">1 <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mapArea"</span> <span class="attribute">class</span>=<span class="value">"blackboard"</span> <span class="attribute">style</span>=<span class="value">"width: 100%;border: 1px solid #c0c0c0;"</span>&gt;</span> 
+2   <span class="tag">&lt;<span class="title">svg</span> <span class="attribute">id</span>=<span class="value">"map"</span> <span class="attribute">xmlns</span>=<span class="value">"http://www.w3.org/2000/svg"</span> <span class="attribute">width</span>=<span class="value">"100%"</span> <span class="attribute">x</span>=<span class="value">"0"</span> <span class="attribute">y</span>=<span class="value">"0"</span> &gt;</span>
+4   <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
+5 <span class="tag">&lt;<span class="title">div</span>&gt;</span>
+6 <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"./js/build.min.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre>
+<p><code>div#mapArea</code> is map container div and <code>svg#map</code> is the actual svg where We’ll add features. <code>build.min.js</code> is the file containing our all code including the modules required. But our main file is <a href="https://github.com/maps-on-blackboard/maps-on-blackboard.github.io/blob/master/src/contents/articles/basic-map/js/main.js">main.js</a> that contains the actual code you need to write for map publishing. So now I<single quote>ll explain the code in <code>main.js</code></p>
+<p>First we have to get the geojson. Jquery getJSON is simple and very useful method for&nbsp;this.</p>
+<pre><code class="lang-javascript"><span class="number">1</span>  <span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>),
+<span class="number">2</span>  geojson2svg = <span class="built_in">require</span>(<span class="string">'geojson2svg'</span>),
+<span class="number">3</span>  parseSVG = <span class="built_in">require</span>(<span class="string">'parse-svg'</span>);
+<span class="number">4</span>
+<span class="number">5</span>  <span class="comment">// get wountires geojson data</span>
+<span class="number">6</span>  $.getJSON(<span class="string">'./data/countries.geo.json'</span>,drawGeoJSON);
+<span class="number">7</span>
+</code></pre>
+<p>First three lines are for the modules that we <em><strong>require</strong></em> for this code, wherever these are used I<single quote>ll&nbsp;explain.</p>
+<p>Next we fetch countries’ boundaries (MultyPolygon) geojson using Jquery <code>getJSON</code> method. <code>drawGeoJSON</code> is callback function. Following is the code for <code>drawGeoJSON</code> </p>
+<pre><code class="lang-javascript"> <span class="number">8</span> <span class="function"><span class="keyword">function</span> <span class="title">drawGeoJSON</span><span class="params">(geojson)</span> {</span>
+ <span class="number">9</span> 
+<span class="number">10</span>   <span class="comment">// get the width and height of svg element.</span>
+<span class="number">11</span>   <span class="comment">// as the width of the map container is 100%, we have to set the width and </span>
+<span class="number">12</span>   <span class="comment">// height of the svgElement as per the current width/height of the container.</span>
+<span class="number">13</span>   <span class="keyword">var</span> container = document.getElementById(<span class="string">'mapArea'</span>),
+<span class="number">14</span>     width = container.offsetWidth,
+<span class="number">15</span>     svgMap = document.getElementById(<span class="string">'map'</span>);
+<span class="number">16</span>   svgMap.setAttribute(<span class="string">'width'</span>, width);
+<span class="number">17</span>   svgMap.setAttribute(<span class="string">'height'</span>, width*<span class="number">.5</span>);
+</code></pre>
+<p>Map container and svg container width has to be responsive. I mean width of the map should be according to device width and proportionately I set the map&nbsp;height. </p>
+<p>Now second component i.e. conversion of geojson to <span class="caps">SVG</span>. For this I am using the module <a href="https://www.npmjs.com/package/geojson2svg">geojson2svg</a>.  </p>
+<pre><code class="lang-javascript"><span class="number">18</span>   <span class="comment">// convert geojson to svg string </span>
+<span class="number">19</span>   <span class="keyword">var</span> convertor = geojson2svg(
+<span class="number">20</span>     {width: width, height: width},
+<span class="number">21</span>     {
+<span class="number">22</span>       attributes: {
+<span class="number">23</span>         <span class="string">'style'</span>: <span class="string">'stroke:#006600; fill: #<span class="caps">F0F8FF</span>;stroke-width:0.5px;'</span>,
+<span class="number">24</span>       },
+<span class="number">25</span>       mapExtent: {
+<span class="number">26</span>         left: -<span class="number">180</span>,
+<span class="number">27</span>         right: <span class="number">180</span>,
+<span class="number">28</span>         bottom: -<span class="number">90</span>,
+<span class="number">29</span>         top: <span class="number">90</span>
+<span class="number">30</span>       }
+<span class="number">31</span>     }
+<span class="number">32</span>   );
+<span class="number">33</span>   <span class="keyword">var</span> svgStrings = convertor.convert(geojson);
+<span class="number">34</span>
+</code></pre>
+<p>To initiate an instance of geojson2svg first parameter(line 20) is svg viewport size and the second object of options. First option <em><strong>attributes</strong></em> (line 22) is svg attributes here we are passing svg polygon <em><strong>style</strong></em> that will be attached to each country path(svg node path). Second option is <em><strong>mapExtent</strong></em> (line 25) i.e. very clear map extent. <em><strong>convert</strong></em> <span class="caps">API</span> of geojson2svg convert the geojson to array of SVG path strings. I’ll describe in detail geojson2svg module a later&nbsp;blog.</p>
+<p>Now for rendering on the map each <span class="caps">SVG</span> string has to be converted into DOM elements. For this I am using a module <a href="https://www.npmjs.com/package/parse-svg">parse-svg</a> and each svg <span class="caps">DOM</span> element is appended to main SVG&nbsp;element.   </p>
+<pre><code class="lang-javascript"><span class="number">37</span>   <span class="comment">// parse each svg string and append to svg element </span>
+<span class="number">38</span>   svgStrings.forEach(<span class="function"><span class="keyword">function</span><span class="params">(svgStr)</span> {</span>
+<span class="number">39</span>     <span class="keyword">var</span> svg = parseSVG(svgStr);
+<span class="number">40</span>     svgMap.appendChild(svg);
+<span class="number">41</span>   });
+<span class="number">42</span> }
+</code></pre>
+<p>And here is our simple map of countries that we created using&nbsp;geojson2svg.</p>
+<p><div id="mapArea" class="blackboard" style="width: 100%;height:50%;border: 1px solid #c0c0c0;"> 
+  <svg id="map" xmlns="http://www.w3.org/2000/svg"
+    width="100%" height="50%" x="0" y="0" >
+  </svg>
+</div></p>
+<script type="text/javascript" src="./js/build.js"></script>
+
+<p>This map is actual map generated from the above code, please check this page source&nbsp;code. </p>
+<p><strong>Note: Each article in this blog is an individual project. Here is the <a href="https://github.com/maps-on-blackboard/blog1-basic-map/">source code</a> for this article. In the source repository there are maps[n].html files that are used to show maps in the&nbsp;blog.</strong></p>
+</section>
+          <div id="social" class="social">
+            <div class="pw-widget pw-size-medium">
+             <a class="pw-button-twitter"></a>
+             <a class="pw-button-googleplus"></a>
+             <a class="pw-button-linkedin"></a>
+             <a class="pw-button-gmail"></a>
+             <a class="pw-button-wordpress"></a>
+             <a class="pw-button-email"></a>
+             <a class="pw-button-facebook"></a>
+            </div>
+            <script src="http://i.po.st/static/v3/post-widget.js#publisherKey=kcgsqhekab9c9t58t7ru&retina=true" type="text/javascript"></script>
+          </div>
+          <div id="disqus_thread"></div><div id="disqus_thread"></div>
+          <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_shortname = 'mapsonblackboardcom';
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             (function() {
+                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+             })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="copy">
+          <p>&copy; 2015 Gagan Bansal &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a><span>&nbsp;and&nbsp;</span><a href="http://pages.github.com">GitHub Pages </a><span>.&nbsp;</span><span>Source code for this &nbsp;</span><a href="https://github.com/maps-on-blackboard/maps-on-blackboard-wintersmith">blog</a>
+          </p>
+        </section>
+      </div>
+    </footer><script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-60457223-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </body>
+</html>
