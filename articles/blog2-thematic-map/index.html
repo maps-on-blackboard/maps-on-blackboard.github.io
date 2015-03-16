@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>Maps on Blackboard
+    </title>
+    <link rel="alternate" href="http://maps-on-blackboard.com/feed.xml" type="application/rss+xml" title="Learn how to create online maps with lot of flexibility">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="./css/maps.css">
+  </head>
+  <body class="article-detail">
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Thematic map with geojson2svg</h1>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>In my previous blog <a href="http://maps-on-blackboard.com/articles/blog1-basic-map/">Basic map with geojson2svg</a> we have seen that how easily we can create svg world map using <a href="https://github.com/gagan-bansal/geojson2svg">geojson2svg</a>. The previous map was a basic map without any information of any country. Now we are going to create world population map showing low, medium and high population countries with different&nbsp;colors. </p>
+<h2 id="-"> </h2>
+<p>First I am showing the output, countries population thematic map color-coded as low, medium and&nbsp;high.</p>
+<p><ul id="legend">
+  <li> <span class="box l"></span><span class="label">Low</span>
+  <li> <span class="box m"></span><span class="label">Medium</span>
+  <li> <span class="box h"></span><span class="label">High</span>
+</ul></p>
+<p><div id="mapArea" style="width: 100%;height:50%;border: 1px solid #c0c0c0;"> 
+  <svg id="map" xmlns="http://www.w3.org/2000/svg" x="0" y="0" >
+  </svg>
+</div></p>
+<script type="text/javascript" src="./js/build.js"></script>
+
+<p>Now the approach for the map creation is assemble the data (geojson and population) then convert to svg and render on maps with styles&nbsp;required.</p>
+<p><strong>Please clone the project <a href="https://github.com/maps-on-blackboard/blog2-thematic-map/">blog2-thematic-map</a> so that while going through this blog you can execute&nbsp;also.</strong></p>
+<p>Code below shows the <span class="caps">HTML</span> component from <a href="https://github.com/maps-on-blackboard/blog2-thematic-map/blob/master/map1.html">map1.html</a> for the above&nbsp;map. </p>
+<pre><code class="lang-javascript">&lt;ul id=<span class="string">"legend"</span>&gt;
+  <span class="xml"><span class="tag">&lt;<span class="title">li</span>&gt;</span> <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"box l"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"label"</span>&gt;</span>Low<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">li</span>&gt;</span> <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"box m"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"label"</span>&gt;</span>Medium<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">li</span>&gt;</span> <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"box h"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"label"</span>&gt;</span>High<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mapArea"</span> <span class="attribute">style</span>=<span class="value">"width: 100%;height:50%;border: 1px solid #c0c0c0;"</span>&gt;</span> 
+  <span class="tag">&lt;<span class="title">svg</span> <span class="attribute">id</span>=<span class="value">"map"</span> <span class="attribute">xmlns</span>=<span class="value">"http://www.w3.org/2000/svg"</span> <span class="attribute">x</span>=<span class="value">"0"</span> <span class="attribute">y</span>=<span class="value">"0"</span> &gt;</span>
+  <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"./js/build.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span>
+</code></pre>
+<p>We’ll discuss each step of the JavaScript code <a href="https://github.com/maps-on-blackboard/blog2-thematic-map/blob/master/js/main.js">main.js</a> in detail, the first is the data i.e. geographic boundaries of countries and population of each country. As discussed in the last blog, geojson is well suited for countries’ boundaries. Though geojson has a structure to store the attributes of the feature like population, I prefer to store the feature information in a separate json file. Advantage is that we have to maintain just one geojson file and any information can be linked at run time. To join geojson with json I am using module <a href="https://www.npmjs.com/package/extend-geojson-properties">extend-geojson-properties</a>. Let’s see the code&nbsp;now:</p>
+<pre><code class="lang-javascript"> <span class="number">1</span> <span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>),
+ <span class="number">2</span>   geojson2svg = <span class="built_in">require</span>(<span class="string">'geojson2svg'</span>),
+ <span class="number">3</span>   parseSVG = <span class="built_in">require</span>(<span class="string">'parse-svg'</span>),
+ <span class="number">4</span>   extendGeoJSON = <span class="built_in">require</span>(<span class="string">'extend-geojson-properties'</span>);
+ <span class="number">5</span> 
+ <span class="number">6</span> <span class="comment">// get countires geojson data and population data</span>
+ <span class="number">7</span> $.when(
+ <span class="number">8</span>   $.getJSON(<span class="string">'./data/countries.geo.json'</span>),
+ <span class="number">9</span>   $.getJSON(<span class="string">'./data/population.json'</span>)
+<span class="number">10</span> ).then(drawGeoJSON, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+<span class="number">11</span>   console.log(<span class="string">'data not found'</span>);
+<span class="number">12</span> })
+</code></pre>
+<p>In first four lines we just include the modules that we <em>require</em>. Then with ajax’ <em>promise</em> approach I fetch geojson and population json data. The response from the both request are passed in <em>drawGeoJSON</em> function. Next in <em>drawGeoJSON</em> function we’ll see how to join the geojson and json&nbsp;data.</p>
+<pre><code class="lang-javascript"><span class="number">14</span> <span class="function"><span class="keyword">function</span> <span class="title">drawGeoJSON</span><span class="params">(respGeojson,respPopulation)</span> {</span>
+<span class="number">15</span>   <span class="keyword">var</span> geojson = respGeojson[<span class="number">0</span>],
+<span class="number">16</span>     population = respPopulation[<span class="number">0</span>];
+<span class="number">17</span>   <span class="comment">// extend geojson properties with country's population</span>
+<span class="number">18</span>   <span class="keyword">var</span> joinMap = {
+<span class="number">19</span>     geoKey: <span class="string">'properties.name'</span>,
+<span class="number">20</span>     dataKey: <span class="string">'countryName'</span>
+<span class="number">21</span>   };
+<span class="number">22</span>   extendGeoJSON(geojson,population.countries,joinMap);
+</code></pre>
+<p>In jQuery’s ajax response objects <em>respGeojson</em> and <em>respPopulation</em>, zeroth value is <em>data</em>. Now we need to join the geojson and population data. <a href="https://www.npmjs.com/package/extend-geojson-properties">extend-geojson-properties</a> is very simple module for this purpose, we have to just specify the joining keys for each in <em>joinMap</em>. This module is function that accepts parameters, first - geojson (<em>geojson</em>), second - json data set (<em>population</em>) and third - object of join keys (<em>joinMap</em>). The function extends all the json fields of json data set to geojson properties object. You can read more about extend-geojson-properties module <a href="https://github.com/gagan-bansal/extend-geojson-properties">here</a>.</p>
+<p>Now we need to convert geojson to&nbsp;svg:</p>
+<pre><code class="lang-javascript"><span class="number">24</span>   <span class="comment">// get the width and height of svg element.</span>
+<span class="number">25</span>   <span class="comment">// as the width of the map container is 100%, we have to set the width and </span>
+<span class="number">26</span>   <span class="comment">// height of the svgElement as per the current width/height of the container.</span>
+<span class="number">27</span>   <span class="keyword">var</span> container = document.getElementById(<span class="string">'mapArea'</span>),
+<span class="number">28</span>     width = container.offsetWidth,
+<span class="number">29</span>     svgMap = document.getElementById(<span class="string">'map'</span>);
+<span class="number">30</span>   svgMap.setAttribute(<span class="string">'width'</span>, width);
+<span class="number">31</span>   svgMap.setAttribute(<span class="string">'height'</span>, width * <span class="number">0.5</span>);
+<span class="number">32</span>   <span class="comment">// initiate geojson2svg </span>
+<span class="number">33</span>   <span class="keyword">var</span> convertor = geojson2svg(
+<span class="number">34</span>     {width: width, height: width * <span class="number">0.5</span>},
+<span class="number">35</span>     {
+<span class="number">36</span>       mapExtent: {
+<span class="number">37</span>         left: -<span class="number">180</span>,
+<span class="number">38</span>         right: <span class="number">180</span>,
+<span class="number">39</span>         bottom: -<span class="number">90</span>,
+<span class="number">40</span>         top: <span class="number">90</span>
+<span class="number">41</span>       }
+<span class="number">42</span>     }
+<span class="number">43</span>   );
+</code></pre>
+<p>In the above code we initialize the <a href="https://www.npmjs.com/package/geojson2svg">geojson2svg</a> instance as explained in the last blog <a href="http://maps-on-blackboard.com/articles/blog1-basic-map/">Basic map with geojson2svg</a>.</p>
+<p>Next we categorize every feature according to the population and convert to svg by assigning css class&nbsp;accordingly.</p>
+<pre><code class="lang-javascript"><span class="number">44</span>   <span class="comment">// process every feature</span>
+<span class="number">45</span>   geojson.features.forEach(<span class="function"><span class="keyword">function</span><span class="params">(f)</span> {</span>
+<span class="number">46</span>     <span class="keyword">var</span> popCat, svgString, svg;
+<span class="number">47</span>     <span class="keyword">if</span> (f.properties.population &lt;= <span class="number">30000000</span>) {
+<span class="number">48</span>       popCat = <span class="string">'low'</span>;
+<span class="number">49</span>     } <span class="keyword">else</span> <span class="keyword">if</span> ( f.properties.population &gt; <span class="number">30000000</span>
+<span class="number">50</span>     &amp;&amp; f.properties.population &lt;= <span class="number">60000000</span>) {
+<span class="number">51</span>       popCat = <span class="string">'medium'</span>;
+<span class="number">52</span>     } <span class="keyword">else</span> {
+<span class="number">53</span>       popCat = <span class="string">'high'</span>;
+<span class="number">54</span>     }
+<span class="number">55</span>     svgString = convertor.convert(
+<span class="number">56</span>       f,
+<span class="number">57</span>       {attributes: {<span class="string">'class'</span>: popCat}});
+<span class="number">58</span>     svg = parseSVG(svgString);
+<span class="number">59</span>     svgMap.appendChild(svg);
+<span class="number">60</span>   });
+<span class="number">61</span> }
+</code></pre>
+<p>For each feature we first check to which category the feature belongs. Once we get the category (<em>popCat</em>) feature is converted to svg string (<em>svgString</em>) by <em>convert</em>  function. Two parameters are passed to this function first - feature (<em>f</em>) and second options. In options here we are passing the svg class name that will apply the style to svg according to population category (line no 57). Here <em>attributes</em> are the attributes of svg <span class="caps">DOM</span> element, we can pass any attribute while converting the geojson as per our requirement. Next (line 58) with <em>parse-svg</em> module svg string is converted to svg <span class="caps">DOM</span> element and then appended to main svg element (<em>svgMap</em>). And we are done, our thematic map is&nbsp;ready.  </p>
+<p>The map included in this blog is svg map generated from the above&nbsp;code.  </p>
+<p><strong>Note: Each article in this blog is an individual project. Here is the <a href="https://github.com/maps-on-blackboard/blog2-thematic-map/">source code</a> for this article. In the source repository there are maps[n].html files that are used to show maps in the&nbsp;blog.</strong></p>
+</section>
+          <div id="social" class="social">
+            <div class="pw-widget pw-size-medium">
+             <a class="pw-button-twitter"></a>
+             <a class="pw-button-googleplus"></a>
+             <a class="pw-button-linkedin"></a>
+             <a class="pw-button-gmail"></a>
+             <a class="pw-button-wordpress"></a>
+             <a class="pw-button-email"></a>
+             <a class="pw-button-facebook"></a>
+            </div>
+            <script src="http://i.po.st/static/v3/post-widget.js#publisherKey=kcgsqhekab9c9t58t7ru&retina=true" type="text/javascript"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="copy">
+          <p>&copy; 2015 Gagan Bansal &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a><span>&nbsp;and&nbsp;</span><a href="http://pages.github.com">GitHub Pages </a><span>.&nbsp;</span><span>Source code for this &nbsp;</span><a href="https://github.com/maps-on-blackboard/maps-on-blackboard-wintersmith">blog</a>
+          </p>
+        </section>
+      </div>
+    </footer><script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-60457223-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </body>
+</html>
