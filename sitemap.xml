@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://maps-on-blackboard.com</loc>
+    <lastmod>2015-03-17T01:27:30.073Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://maps-on-blackboard.com/archive.html</loc>
+    <lastmod>2015-03-17T01:27:30.073Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://maps-on-blackboard.com/articles/blog2-thematic-map/</loc>
+    <lastmod>2015-03-15T00:00:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://maps-on-blackboard.com/articles/blog1-basic-map/</loc>
+    <lastmod>2015-03-06T00:00:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://maps-on-blackboard.com/archive/2015</loc>
+    <lastmod>2015-03-17T01:27:30.073Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
