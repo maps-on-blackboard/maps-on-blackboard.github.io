@@ -5,9 +5,102 @@
     <atom:link href="http://maps-on-blackboard.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://maps-on-blackboard.com</link>
     <description>Learn how to create online maps with lot of flexibility</description>
-    <pubDate>Sat, 14 Mar 2015 20:00:00 -0400</pubDate>
+    <pubDate>Tue, 14 Apr 2015 20:00:00 -0400</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Map of web mercator tiles</title>
+      <link>http://maps-on-blackboard.com/articles/web-mercator-tiles-map/</link>
+      <pubDate>Tue, 14 Apr 2015 20:00:00 -0400</pubDate>
+      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/web-mercator-tiles-map/</guid>
+      <author></author>
+      <description>&lt;p&gt;A lot of processing is required to create raster map tiles at back end. Yes there are many steps with many software to generate OSM tiles with road data. But on the other hand consuming these map tiles is very easy at browser end. We’ll see in this blog how easy it is to display map of reqired area with raster map tile in perticular for spherical mercator commanly known as web mercator projection. &lt;/p&gt;
+&lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;
+&lt;p&gt;Here is the map with web mercator image tiles using npm module &lt;a href=&quot;https://www.npmjs.com/package/web-mercator-tiles&quot;&gt;web-mercator-tiles&lt;/a&gt;. You can change the center and zoom of this map. In the current example map can not be dragged or zoomed, the idea is to show the calculation of map tiles at proper place.&lt;/p&gt;
+&lt;p&gt;&lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+&lt;span&gt; Center (long, lat) &lt;/span&gt;&lt;input type=&quot;text&quot; id=&quot;center&quot; value=&quot;-71.147, 42.472&quot;/&gt;
+&lt;span&gt; Zoom &lt;/span&gt; &lt;input type=&quot;number&quot; id=&quot;zoom&quot; value=&quot;12&quot; style=&quot;width:50px&quot; /&gt;&lt;input id=&quot;zoomTo&quot; type=&quot;button&quot; value=&quot;Zoom&quot;/&gt;&lt;/p&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./js/build.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Let’s understand the approach for this map. So the requirement is to display a map for a given location and zoom level. &lt;/p&gt;
+&lt;p&gt;First extent of the map need to be calculated in projected coordinate system (in our case spherical mercator) for a map’s div size and desired center and zoom level. Now npm module &lt;a href=&quot;https://www.npmjs.com/package/web-mercator-tiles&quot;&gt;web-mercator-tiles&lt;/a&gt; can be used to get the list of tiles for given projected extent and zoom. Each tile of this set has tile’s Z,X,Y properties and top, left with respect to map div. And now its quite easy to display all the map tile images as image tag in map div from any map provider (OSM, MapBox and yes google, bing also).&lt;/p&gt;
+&lt;p&gt;We’ll see now the code in detail. First the HTML component of this example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;map&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;span&lt;/span&gt;&amp;gt;&lt;/span&gt; Center (long, lat) &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;span&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;text&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;center&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;-71.147, 42.472&quot;&lt;/span&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;span&lt;/span&gt;&amp;gt;&lt;/span&gt; Zoom &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;span&lt;/span&gt;&amp;gt;&lt;/span&gt; 
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;number&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;zoom&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;12&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;style&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;width:50px&quot;&lt;/span&gt; /&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;zoomTo&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;button&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;value&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;Zoom&quot;&lt;/span&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;./js/build.min.js&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;javascript&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The main logic (JavaScript code) for this map is in &lt;a href=&quot;https://github.com/maps-on-blackboard/web-mercator-tiles-map/blob/master/js/main.js&quot;&gt;main.js&lt;/a&gt; file that is part of &lt;a href=&quot;http://github.com/gagan-bansal/web-mercator-tiles&quot;&gt;this repo&lt;/a&gt;. So here goes the code step by step.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; webMercatorTiles = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'web-mercator-tiles'&lt;/span&gt;),
+&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;   SphericalMercator = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'sphericalmercator'&lt;/span&gt;),
+&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;   baseURL = &lt;span class=&quot;string&quot;&gt;'http://tile.openstreetmap.org'&lt;/span&gt;,
+&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;   mercatorMaxRes = &lt;span class=&quot;number&quot;&gt;156543.03392804097&lt;/span&gt;,
+&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;   mapDiv, size;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;First we &lt;em&gt;require&lt;/em&gt; the npm modules. &lt;a href=&quot;https://www.npmjs.com/package/web-mercator-tiles&quot;&gt;web-mercator-tiles&lt;/a&gt; module to get the tiles for given map extent and &lt;a href=&quot;https://www.npmjs.com/package/sphericalmercator&quot;&gt;sphericalmercator&lt;/a&gt; to transform geographic coordinates to spherical/web mercator projection. As OSM tiles url pattern is &lt;code&gt;http://tile.openstreetmap.org/{z}/{X}/{Y}.png&lt;/code&gt; so we defined the baseURL at line 3. Mercator projection extent divided by tile size (256) will give the maximum resolution i.e. zoom level 0 resolution.&lt;/p&gt;
+&lt;p&gt;Next we calculate the map’s div size.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt; &lt;span class=&quot;number&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// get map window size&lt;/span&gt;
+ &lt;span class=&quot;number&quot;&gt;7&lt;/span&gt; mapDiv = document.getElementById(&lt;span class=&quot;string&quot;&gt;'map'&lt;/span&gt;);
+ &lt;span class=&quot;number&quot;&gt;8&lt;/span&gt; size = {
+ &lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;   height: &lt;span class=&quot;built_in&quot;&gt;parseInt&lt;/span&gt;(mapDiv.clientHeight),
+&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;   width: &lt;span class=&quot;built_in&quot;&gt;parseInt&lt;/span&gt;(mapDiv.clientWidth)
+&lt;span class=&quot;number&quot;&gt;11&lt;/span&gt; };
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we create an instance of SphericalMercator that is projection transformer. To change the map area and zoom I created a button and assigned function &lt;code&gt;zoomTo&lt;/code&gt;. And on page load we call our &lt;code&gt;zoomTo&lt;/code&gt; function that is the main function to load the tiles. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;number&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// projection tranformer instace&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;13&lt;/span&gt; merc = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; SphericalMercator({size:&lt;span class=&quot;number&quot;&gt;256&lt;/span&gt;});
+&lt;span class=&quot;number&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// add event listenre to 'zoomTo' button&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;15&lt;/span&gt; document.getElementById(&lt;span class=&quot;string&quot;&gt;'zoomTo'&lt;/span&gt;).addEventListener(&lt;span class=&quot;string&quot;&gt;'click'&lt;/span&gt;, zoomTo);
+&lt;span class=&quot;number&quot;&gt;16&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;// call zoomTo funcion on page load&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;17&lt;/span&gt; zoomTo();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;zoomTo function:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;number&quot;&gt;19&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;zoomTo&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; {&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;20&lt;/span&gt;   &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; center = document.getElementById(&lt;span class=&quot;string&quot;&gt;'center'&lt;/span&gt;).value.split(&lt;span class=&quot;string&quot;&gt;','&lt;/span&gt;),
+&lt;span class=&quot;number&quot;&gt;21&lt;/span&gt;     zoom =  &lt;span class=&quot;built_in&quot;&gt;parseInt&lt;/span&gt;(document.getElementById(&lt;span class=&quot;string&quot;&gt;'zoom'&lt;/span&gt;).value),
+&lt;span class=&quot;number&quot;&gt;22&lt;/span&gt;     mercCenter, mapExtent, res, tiles;
+&lt;span class=&quot;number&quot;&gt;23&lt;/span&gt;   &lt;span class=&quot;comment&quot;&gt;// calculate map parameters in mercator projection&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;24&lt;/span&gt;   mercCenter = merc.forward([&lt;span class=&quot;built_in&quot;&gt;parseFloat&lt;/span&gt;(center[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;]),&lt;span class=&quot;built_in&quot;&gt;parseFloat&lt;/span&gt;(center[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;])]);
+&lt;span class=&quot;number&quot;&gt;25&lt;/span&gt;   res = mercatorMaxRes/&lt;span class=&quot;built_in&quot;&gt;Math&lt;/span&gt;.pow(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,zoom);
+&lt;span class=&quot;number&quot;&gt;26&lt;/span&gt;   mapExtent = {
+&lt;span class=&quot;number&quot;&gt;27&lt;/span&gt;     left: mercCenter[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;] - size.width/&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt; * res,
+&lt;span class=&quot;number&quot;&gt;28&lt;/span&gt;     right: mercCenter[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;] + size.width/&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt; * res,
+&lt;span class=&quot;number&quot;&gt;29&lt;/span&gt;     bottom: mercCenter[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;] - size.height/&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt; * res,
+&lt;span class=&quot;number&quot;&gt;30&lt;/span&gt;     top: mercCenter[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;] + size.height/&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt; * res
+&lt;span class=&quot;number&quot;&gt;31&lt;/span&gt;   };
+&lt;span class=&quot;number&quot;&gt;32&lt;/span&gt;   &lt;span class=&quot;comment&quot;&gt;// get map tiles list for our map extent&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;33&lt;/span&gt;   tiles = webMercatorTiles(mapExtent, zoom);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As we discussed in the approach extent (web/spehrical mercator) of the map is required for &lt;a href=&quot;https://www.npmjs.com/package/web-mercator-tiles&quot;&gt;web-mercator-tiles&lt;/a&gt; module. So we calcualte center of the map in mercator projection at line 24. Then resolution for given zoom is calculated at line 25. Now its quite easy to get projected map extent with respect to the center and give map’s div size. Pass the map extent and zoom to &lt;code&gt;webMercatorTile&lt;/code&gt; function to get the tiles details. Here is example of tile object:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;{
+  &lt;span class=&quot;string&quot;&gt;&quot;X&quot;&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;1237&lt;/span&gt;,
+  &lt;span class=&quot;string&quot;&gt;&quot;Y&quot;&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;1512&lt;/span&gt;,
+  &lt;span class=&quot;string&quot;&gt;&quot;Z&quot;&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;12&lt;/span&gt;,
+  &lt;span class=&quot;string&quot;&gt;&quot;top&quot;&lt;/span&gt;:-&lt;span class=&quot;number&quot;&gt;120&lt;/span&gt;,
+  &lt;span class=&quot;string&quot;&gt;&quot;left&quot;&lt;/span&gt;:-&lt;span class=&quot;number&quot;&gt;28&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;top&lt;/code&gt; and &lt;code&gt;left&lt;/code&gt; are with respect to map’s div. Its quite easy now to append each map image tile as &lt;code&gt;img&lt;/code&gt; tag in map’s div.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;number&quot;&gt;34&lt;/span&gt;   &lt;span class=&quot;comment&quot;&gt;// append map tile images to the map div&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;35&lt;/span&gt;   mapDiv.innerHTML = &lt;span class=&quot;string&quot;&gt;&quot;&quot;&lt;/span&gt;;
+&lt;span class=&quot;number&quot;&gt;36&lt;/span&gt;   tiles.forEach(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(t)&lt;/span&gt; {&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;37&lt;/span&gt;     &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; img = document.createElement(&lt;span class=&quot;string&quot;&gt;'img'&lt;/span&gt;);
+&lt;span class=&quot;number&quot;&gt;38&lt;/span&gt;     img.src = baseURL + &lt;span class=&quot;string&quot;&gt;'/'&lt;/span&gt;+ t.Z + &lt;span class=&quot;string&quot;&gt;'/'&lt;/span&gt; + t.X + &lt;span class=&quot;string&quot;&gt;'/'&lt;/span&gt; + t.Y + &lt;span class=&quot;string&quot;&gt;'.png'&lt;/span&gt;;
+&lt;span class=&quot;number&quot;&gt;39&lt;/span&gt;     img.setAttribute(&lt;span class=&quot;string&quot;&gt;'style'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'left:'&lt;/span&gt;+ t.left + &lt;span class=&quot;string&quot;&gt;'px;top:'&lt;/span&gt;+t.top+&lt;span class=&quot;string&quot;&gt;'px;'&lt;/span&gt;);
+&lt;span class=&quot;number&quot;&gt;40&lt;/span&gt;     img.setAttribute(&lt;span class=&quot;string&quot;&gt;'class'&lt;/span&gt;,&lt;span class=&quot;string&quot;&gt;'tile'&lt;/span&gt;);
+&lt;span class=&quot;number&quot;&gt;41&lt;/span&gt;     mapDiv.appendChild(img);
+&lt;span class=&quot;number&quot;&gt;42&lt;/span&gt;   });
+&lt;span class=&quot;number&quot;&gt;43&lt;/span&gt; }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And we are done.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Future:&lt;/strong&gt; While writing this blog I was thinking that its not difficult to modify &lt;code&gt;web-mercator-tiles&lt;/code&gt; (&lt;a href=&quot;http://github.com/gagan-bansal/web-mercator-tiles&quot;&gt;github source&lt;/a&gt;) for making it generic. Generic here I mean for any projection. Right  now itself projection transformer is not part of this module and I can initiate the instance with  projection extent and maximum resolution. Then the tiles detail can be calculated easily for any projection. &lt;/p&gt;
+&lt;p&gt;Other basic functionality of any map is navigation. &lt;code&gt;pan&lt;/code&gt; and &lt;code&gt;zoom&lt;/code&gt; can also be achieved using some gesture library. I am thinking of using &lt;a href=&quot;http://hammerjs.github.io/&quot;&gt;hammer.js&lt;/a&gt;. Certainly I’ll try this as my next exercise.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note: Each article in this blog is an individual project. Here is the &lt;a href=&quot;https://github.com/maps-on-blackboard/web-mercator-tiles-map&quot;&gt;source code&lt;/a&gt; for this article. In the source repository there are maps[n].html files that are used to show maps in the blog.&lt;/strong&gt;&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Thematic map with geojson2svg</title>
       <link>http://maps-on-blackboard.com/articles/blog2-thematic-map/</link>
