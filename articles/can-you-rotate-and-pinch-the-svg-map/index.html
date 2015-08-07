@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>Maps on Blackboard
+    </title>
+    <link rel="alternate" href="http://maps-on-blackboard.com/feed.xml" type="application/rss+xml" title="Learn how to create online maps with lot of flexibility">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="./css/maps.css">
+  </head>
+  <body class="article-detail">
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Can you rotate and pinch the SVG map?</h1>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>As I am writing the blog you might have guessed that answer is going to be yes. I mean not only drag, pinch and rotation but also retrieving map’s view (center coordinate, zoom level/ resolution and rotation angle) after applying many touch operations. So I want to create all maps navigation features and along with handling of maps view state in maps coordinate system. In some of my previous articles like <a href="http://maps-on-blackboard.com/articles/blog2-thematic-map/">Thematic map with geojson2svg</a> and <a href="http://maps-on-blackboard.com/articles/interactive-map/">Interactive map for data visualization</a> I have explained how easily we can create the <span class="caps">SVG</span> maps with GeoJSON data. In this article I’ll implement <a href="https://github.com/gagan-bansal/emptymap.js">emptymap.js</a> with <a href="http://hammerjs.github.io/">Hammer.js</a> to achieve maps&nbsp;navigation.</p>
+<h2 id="-"> </h2>
+<p>Maps navigation is composition of two concepts, screen interaction and maps rendering. Screen interactions are pinch, drag, double tap and rotation. The second part is maps rendering according to the screen interaction like double tap as zoom in and drag as pan. Hammer.js is wonderful library for screen interactions, it support all touch interactions/gestures with appropriate measurements like drag/pan as movement in pixels in x and y direction. So given movement in pixels how much should the map be shifted? For this purpose I have developed the <a href="https://github.com/gagan-bansal/emptymap.js">emptymap.js</a> module. As the name suggests it does not contain the maps rather helps in maps navigation. emptymap.js helps in calculating the <a href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/transform">transformation matrix</a> for given drag movement or other interactions measurement. This transformation matrix can be set to <span class="caps">SVG</span> as CSS transform property or SVG attribute to achieve the interaction effect on maps. emptymap.js also maintains the maps current state so at any point of time you can retrieve the maps view values center, zoom level/resolution and&nbsp;rotation.    </p>
+<p>Before discussing the code in detail let’s pinch and rotate this <span class="caps">SVG</span>&nbsp;map: </p>
+<p><pre id="viewJSON" style="background-color:#eee;font-size:12px;"> View </pre></p>
+<p><div id="mapArea">
+  <div class="pannel">
+    <div id="zoomin" class="icon">
+     <span>+</span> 
+    </div>
+    <div id="zoomout" class="icon">
+     <span class="left-margin">-</span> 
+    </div>
+  </div> 
+  <div id="viewPort" >
+    <svg id="map" xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="100%" height="100%">
+      <g id="worldpop"></g>
+    </svg>
+  </div>
+</div>  </p>
+<p><ul id="legend">
+  <li> Population&nbsp;map </li>
+  <li> <span class="box l"></span><span class="label"> &lt;&#61; 30m</span>
+  <li> <span class="box m"></span><span class="label"> &gt; 30m and &lt;&#61; 60m</span>
+  <li> <span class="box h"></span><span class="label"> &gt; 60m</span>
+</ul>
+<strong>Use <a href="/articles/can-you-rotate-and-pinch-the-svg-map/map1.html">this map</a> to emulate touch for&nbsp;desktop.</strong></p>
+<script type="text/javascript" src="./js/build.min.js"></script>
+
+<p>Here is the <span class="caps">HTML</span> component of the&nbsp;map:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mapArea"</span> &gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"pannel"</span>&gt;</span> 
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"zoomin"</span> <span class="attribute">class</span>=<span class="value">"icon"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span>+<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"zoomout"</span> <span class="attribute">class</span>=<span class="value">"icon"</span>&gt;</span><span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"left-margin"</span>&gt;</span>-<span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span> 
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"viewPort"</span> &gt;</span>
+      <span class="tag">&lt;<span class="title">svg</span> <span class="attribute">id</span>=<span class="value">"map"</span> <span class="attribute">xmlns</span>=<span class="value">"http://www.w3.org/2000/svg"</span> 
+        <span class="attribute">x</span>=<span class="value">"0"</span> <span class="attribute">y</span>=<span class="value">"0"</span> <span class="attribute">width</span>=<span class="value">"100%"</span> <span class="attribute">height</span>=<span class="value">"100%"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">g</span> <span class="attribute">id</span>=<span class="value">"worldpop"</span>&gt;</span><span class="tag">&lt;/<span class="title">g</span>&gt;</span>
+      <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre>
+<p>The <code>viewport</code> div would be used to capture the screen interaction with Hammer.js and the group <code>worldpop</code> in svg would be used to draw the <span class="caps">SVG</span> map. Hammer.js instance would calculate the measurement of interaction in <code>viewport</code> and instance of emptymap.js would be used to calculate the transformation&nbsp;matrix. </p>
+<p>Seems simplified as we have separated the interaction part and maps calculations, for interaction part any other library can also be used. I’ll focus here in detail the implementation of emptymap.js. Complete code base is available on <a href="https://github.com/maps-on-blackboard/can-you-rotate-and-pinch-the-svg-map">github</a> and <a href="https://github.com/maps-on-blackboard/can-you-rotate-and-pinch-the-svg-map/blob/master/js/main.js">this</a> is the main JavaScript file for the map. We’ll discuss all important functions/code&nbsp;now.</p>
+<p>First we need to set map’s view i.e. setting the map’s center, zoom and rotation. emptymap.js has this facility or function to set desired view. Another critical thing is rendering the geojson data on <span class="caps">SVG</span> that I achieve with <a href="https://www.npmjs.com/package/geojson2svg">geojson2svg</a>, check my previous articles. <code>drawGeoJSON</code>  function is the function that does maps&nbsp;rendering. </p>
+<p>Now setting the map’s initial&nbsp;view: </p>
+<pre><code class="lang-javascript"> <span class="number">10</span> vp = document.getElementById(<span class="string">'viewPort'</span>);
+ <span class="number">11</span> size = {width: vp.offsetWidth, height: vp.offsetHeight};
+ <span class="number">12</span> emap = <span class="keyword">new</span> emptyMap(size);
+ <span class="number">13</span> emap.setView({
+ <span class="number">14</span>   view: {<span class="string">"center"</span>:[<span class="number">1104009.9356444478</span>,<span class="number">4736381.1012214925</span>],<span class="string">"zoom"</span>:<span class="number">2</span>,<span class="string">"rotation"</span>:-<span class="number">20</span>},
+ <span class="number">15</span>   callback: <span class="function"><span class="keyword">function</span><span class="params">(err,state)</span> {</span>
+ <span class="number">16</span>     <span class="keyword">if</span>(err) {
+ <span class="number">17</span>       console.log(<span class="string">'setview err: '</span>+ err);
+ <span class="number">18</span>       <span class="keyword">return</span>;
+ <span class="number">19</span>     }
+ <span class="number">20</span>     <span class="keyword">var</span> svgLayer = document.getElementById(<span class="string">'worldpop'</span>);
+ <span class="number">21</span>     svgLayer.setAttribute(<span class="string">'transform'</span>, <span class="string">'matrix('</span>+state.matrix.join(<span class="string">', '</span>)+<span class="string">')'</span>);
+ <span class="number">22</span>     <span class="comment">//show maps current view above map</span>
+ <span class="number">23</span>     document.getElementById(<span class="string">'viewJSON'</span>).innerHTML = <span class="built_in"><span class="caps">JSON</span></span>.stringify(
+ <span class="number">24</span>       state.map.getView(),<span class="literal">null</span>, <span class="number">2</span>);
+ <span class="number">25</span>     <span class="comment">// get countires geojson data and population data</span>
+ <span class="number">26</span>     $.when(
+ <span class="number">27</span>       $.getJSON(<span class="string">'./data/countries.geo.json'</span>),
+ <span class="number">28</span>       $.getJSON(<span class="string">'./data/population.json'</span>)
+ <span class="number">29</span>     ).then(drawGeoJSON, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+ <span class="number">30</span>       console.log(<span class="string">'data not found'</span>);
+ <span class="number">31</span>     })
+ <span class="number">32</span>   }
+ <span class="number">33</span> });
+</code></pre>
+<p>First we initiate emptymap.js instance by passing the size of viewport div. In any function of emptymap.js pixel coordinates should be with respect to viewport, read <a href="https://github.com/gagan-bansal/emptymap.js/blob/master/README.md"><span class="caps">API</span> of emptymap.js</a> in detail. You can also pass the projection extent if projection is other than spherical mercator. To set the initial map’s view <code>.setView</code> function is used and parameters are passed as object. There are wo parameters in the passed object, one is obviously the view itself whereas center coordinates are in projected coordinate system and rotation is degrees clock wise positive. The second parameter is callback function, lets understand this clearly. The function gets passed two arguments first error object and second is the map’s state after setting the view. The <code>state</code> argument&nbsp;is: </p>
+<pre><code>{
+  matrix: array of 6 transformation coefficients for svg map
+  tileMatrix: array of 6 transformation coefficient for tile map
+  map: reference to the map itself
+}
+</code></pre><p>So <code>matrix</code> key has the matrix transformation values. We attach this matrix’ values to <code>worldPop</code> group of <span class="caps">SVG</span> as transform property and the svg group is scaled, rotated and translated to desired position. For any other interaction function of emptymap.js also we need to pass callback function. And that function get passed same error and map’s state, so we can make maps state handler as a&nbsp;function: </p>
+<pre><code class="lang-javascript"> <span class="number">41</span> <span class="function"><span class="keyword">function</span> <span class="title">handleMapState</span><span class="params">(err,state)</span> {</span>
+ <span class="number">42</span>   <span class="keyword">if</span>(err) {
+ <span class="number">43</span>     console.log(<span class="string">'map state error: '</span>+ err);
+ <span class="number">44</span>     <span class="keyword">return</span>;
+ <span class="number">45</span>   }
+ <span class="number">46</span>   <span class="keyword">var</span> svgLayer = document.getElementById(<span class="string">'worldpop'</span>);
+ <span class="number">47</span>   svgLayer.setAttribute(<span class="string">'transform'</span>,<span class="string">'matrix('</span>+state.matrix.join(<span class="string">', '</span>)+<span class="string">')'</span>);
+ <span class="number">48</span>   <span class="comment">//show maps current view above map</span>
+ <span class="number">49</span>   document.getElementById(<span class="string">'viewJSON'</span>).innerHTML = <span class="built_in"><span class="caps">JSON</span></span>.stringify(
+ <span class="number">50</span>     state.map.getView(),<span class="literal">null</span>, <span class="number">2</span>);
+ <span class="number">51</span> }
+</code></pre>
+<p>Hammerjs’ event object has event (interaction) center coordinates relative to the upper-left corner of the browser’s client area. That need to be converted as relative to map’s viewprot. <code>getEventCenterPx</code> is used for&nbsp;that. </p>
+<pre><code class="lang-javascript"> <span class="number">34</span> <span class="function"><span class="keyword">function</span> <span class="title">getEventCenterPx</span><span class="params">(ev)</span> {</span>
+ <span class="number">35</span>   <span class="keyword">var</span> viewPort = document.getElementById(<span class="string">'viewPort'</span>);
+ <span class="number">36</span>   <span class="keyword">return</span> [
+ <span class="number">37</span>     ev.center.x - viewPort.getBoundingClientRect().left,
+ <span class="number">38</span>     ev.center.y - viewPort.getBoundingClientRect().top];
+ <span class="number">39</span> }
+</code></pre>
+<p>Now we’ll check how the interactions or gestures are handled with Hammerjs. There is nice <a href="http://hammerjs.github.io/getting-started/">documentation</a> also available for Hammerjs. Hammer is quite flexible library to handle the screen as well as mouse interaction. First create Hammer instance by passing the map’s viewport div then attach event&nbsp;handler. </p>
+<p>Now lets look at the panning of map. First we initiate the Hammer instance and add pan&nbsp;gesture.</p>
+<pre><code class="lang-javascript"> <span class="number">54</span> <span class="keyword">var</span> viewPort = document.getElementById(<span class="string">'viewPort'</span>);
+ <span class="number">55</span> <span class="keyword">var</span> mc = <span class="keyword">new</span> Hammer.Manager(viewPort);
+ <span class="number">56</span> mc.add( <span class="keyword">new</span> Hammer.Pan({
+ <span class="number">57</span>   direction: Hammer.DIRECTION_ALL,
+ <span class="number">58</span>   threshold: <span class="number">0</span>,
+ <span class="number">59</span>   pointers: <span class="number">1</span>,
+ <span class="number">60</span>   preventDefault: <span class="literal">true</span>
+ <span class="number">61</span> }) );
+</code></pre>
+<p>Now the pan event’s handlers&nbsp;are:</p>
+<pre><code class="lang-javascript"> <span class="number">62</span> <span class="keyword">var</span> lastDelta = {x: <span class="number">0</span>, y: <span class="number">0</span>};
+ <span class="number">63</span> mc.on(<span class="string">'panstart'</span>, <span class="function"><span class="keyword">function</span><span class="params">(ev)</span> {</span>
+ <span class="number">64</span>   console.log(<span class="string">'panstart'</span>);
+ <span class="number">65</span>   lastDelta = {x: <span class="number">0</span>, y: <span class="number">0</span>};
+ <span class="number">66</span> });
+ <span class="number">67</span> mc.on(<span class="string">'pan'</span>, <span class="function"><span class="keyword">function</span><span class="params">(ev)</span> {</span>
+ <span class="number">68</span>   <span class="keyword">var</span> cont = document.getElementById(<span class="string">'container'</span>);
+ <span class="number">69</span>   emap.applyDeltaMove({
+ <span class="number">70</span>     deltaX: ev.deltaX - lastDelta.x,
+ <span class="number">71</span>     deltaY: ev.deltaY - lastDelta.y,
+ <span class="number">72</span>     callback: handleMapState
+ <span class="number">73</span>   });
+ <span class="number">74</span>   lastDelta.x = ev.deltaX;
+ <span class="number">75</span>   lastDelta.y = ev.deltaY;
+ <span class="number">76</span> });
+</code></pre>
+<p>In Hammer callback’s event(<code>ev</code>) object <code>deltaX</code> and <code>deltaY</code> are from starting of the pan event. But we want to apply the continues pan so I store the last delta while pan is in action and sort of recalculating the delta move (for x: <code>ev.deltaX - lastDelta.x</code>) that has not been applied to map. So now implementation is simple just pass deltaX, deltaY and map state handler (<code>handleMapState</code>) to <code>.applyDeltaMove</code> <span class="caps">API</span> and your map is pan enabled for touch screen (mobile, tab etc) or&nbsp;desktop. </p>
+<p>Aren’t we excited, what about zoom in on double tap. Not difficult, use <code>.applyDeltaScaleRotation</code> <span class="caps">API</span>, pass the tapped position on viewport and scale factor. In case of zoom in scale factor should be 2. Finally our callback <code>handleMapState</code> will set the zoomed in&nbsp;map.</p>
+<pre><code class="lang-javascript"> <span class="number">79</span> mc.add(<span class="keyword">new</span> Hammer.Tap({event: <span class="string">'doubletap'</span>,taps: <span class="number">2</span>}));
+ <span class="number">80</span> mc.on(<span class="string">'doubletap'</span>, handleDoubleTap);
+ <span class="number">81</span> <span class="function"><span class="keyword">function</span> <span class="title">handleDoubleTap</span><span class="params">(ev)</span> {</span>
+ <span class="number">82</span>   console.log(<span class="string">'doubletapped'</span>);
+ <span class="number">83</span>   <span class="keyword">var</span> tapX = ev.center.x - viewPort.getBoundingClientRect().left;
+ <span class="number">84</span>   <span class="keyword">var</span> tapY = ev.center.y - viewPort.getBoundingClientRect().top;
+ <span class="number">85</span>   emap.applyDeltaScaleRotation({
+ <span class="number">86</span>     position: [tapX, tapY],
+ <span class="number">87</span>     factor: <span class="number">2</span>,
+ <span class="number">88</span>     callback: handleMapState
+ <span class="number">89</span>   });
+ <span class="number">90</span> }
+</code></pre>
+<p>Now we are too excited lets pinch and rotate the map. For pinch and rotation to work simultaneously there is function in Hammer <code>.recognizeWith</code> and used like&nbsp;this:</p>
+<pre><code class="lang-javascript"> <span class="number">92</span> <span class="keyword">var</span> pinch = <span class="keyword">new</span> Hammer.Pinch();
+ <span class="number">93</span> <span class="keyword">var</span> rotate = <span class="keyword">new</span> Hammer.Rotate(
+ <span class="number">94</span>   {event:<span class="string">'rotate'</span>,pointers:<span class="number">2</span>,threshold: <span class="number">0</span>});
+ <span class="number">95</span> pinch.recognizeWith(rotate);
+ <span class="number">96</span> mc.add(pinch);
+ <span class="number">97</span> mc.add(rotate);
+</code></pre>
+<p>Like <code>lastDelta</code> for pan, <code>lastScale</code> and <code>lastRot</code> are used to store the intermediate scale during pinch and rotation respectively. Pinch and rotation both are handled by <code>.applyDeltaScaleRotation</code> <span class="caps">API</span> of emptymap.js. In case of pinch pass scale factor to which the map would be zoomed in or zoomed out. And in case of rotation we pass the rotation angle in degrees clockwise positive. Again <code>handleMapState</code> callback function set the map’s state to <span class="caps">SVG</span> map. Check the detailed code for pinch and rotation interaction/gesture handler <a href="https://github.com/maps-on-blackboard/can-you-rotate-and-pinch-the-svg-map/blob/master/js/main.js">here</a>. </p>
+<p>Now I think for zoom in/out buttons you can easily guess what should be the click event handler function. Yes its <code>.applyDeltaScaleRotation</code> with scale factor 2 for zoom in and scale factor 0.5 for zoom&nbsp;out.</p>
+<p>I hope your <span class="caps">SVG</span> map is navigable now with pinch, drag and&nbsp;rotation. </p>
+<p><strong>Note: Each article in this blog is an individual project. Here is the <a href="https://github.com/maps-on-blackboard/can-you-rotate-and-pinch-the-svg-map">source code</a> for this article’s&nbsp;map.</strong></p>
+</section>
+          <div id="social" class="social">
+            <div class="pw-widget pw-size-medium">
+             <a class="pw-button-twitter"></a>
+             <a class="pw-button-googleplus"></a>
+             <a class="pw-button-linkedin"></a>
+             <a class="pw-button-gmail"></a>
+             <a class="pw-button-wordpress"></a>
+             <a class="pw-button-email"></a>
+             <a class="pw-button-facebook"></a>
+            </div>
+            <script src="http://i.po.st/static/v3/post-widget.js#publisherKey=kcgsqhekab9c9t58t7ru&retina=true" type="text/javascript"></script>
+          </div>
+          <div id="disqus_thread"></div><div id="disqus_thread"></div>
+          <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_shortname = 'mapsonblackboardcom';
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             (function() {
+                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+             })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="copy">
+          <p>&copy; 2015 Gagan Bansal &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a><span>&nbsp;and&nbsp;</span><a href="http://pages.github.com">GitHub Pages </a><span>.&nbsp;</span><span>Source code for this &nbsp;</span><a href="https://github.com/maps-on-blackboard/maps-on-blackboard-wintersmith">blog</a>
+            <a href="https://twitter.com/MapOnBlackboard" class="twitter-follow-button" data-show-count="false">follow me</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+          </p>
+        </section>
+      </div>
+    </footer><script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-60457223-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </body>
+</html>
