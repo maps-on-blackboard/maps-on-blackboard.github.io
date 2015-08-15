@@ -2,15 +2,21 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://maps-on-blackboard.com</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/archive.html</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://maps-on-blackboard.com/articles/background-map/</loc>
+    <lastmod>2015-08-15T00:00:00.000Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/</loc>
@@ -50,151 +56,163 @@
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/shperical-mercator</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/web-mercator</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/map-tiles</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/osm</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/openstreetmap</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/map-the-tiles</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/map-rotation</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/web-mercator-tiles</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/geojson</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/svg</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/maps</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/geojson2svg</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/thematic-map</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/data-visualization</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://maps-on-blackboard.com/tag/svg-styling</loc>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://maps-on-blackboard.com/tag/symbology</loc>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/rotate-map</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/interactive-maps</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/maps-navigation</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/rotate</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/pan</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/drag</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/pinch</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/zoom</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/emptymap.js</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/tag/hammer.js</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>http://maps-on-blackboard.com/archive/2015</loc>
-    <lastmod>2015-08-10T00:50:23.460Z</lastmod>
+    <lastmod>2015-08-15T17:20:02.942Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>

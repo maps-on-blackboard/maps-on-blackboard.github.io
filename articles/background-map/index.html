@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>Maps on Blackboard
+    </title>
+    <link rel="alternate" href="http://maps-on-blackboard.com/feed.xml" type="application/rss+xml" title="Learn how to create online maps with lot of flexibility">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="./css/maps.css">
+  </head>
+  <body class="article-detail">
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Map with background filled as SVG pattern</h1>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>I wanted to use svg fill patterns for thematic maps. I found an interesting library <a href="https://github.com/iros/patternfills">patternfills</a> and filled the whole world with one of the pattern. Defining <span class="caps">SVG</span> patterns and using with <a href="https://github.com/gagan-bansal/geojson2svg">geojson2svg</a> was quite easy. I’ll explain the basic usage of <span class="caps">SVG</span> fill patterns&nbsp;here. </p>
+<h2 id="-"> </h2>
+<p>Here is the&nbsp;map </p>
+<div id="mapArea" style="width: 100%;">
+  <svg id="map" xmlns="http://www.w3.org/2000/svg" x="0" y="0" >
+  <defs>
+    <pattern id="hatch0" patternUnits="userSpaceOnUse"
+        x="0" y="0" width="10" height="10">
+      <g style="fill:none; stroke:#fff; stroke-width:2">
+        <path d="M-1,1 l2,-2 M0,10 l10,-10 M9,11 l2,-2"/>
+      </g>
+    </pattern>
+  <defs>
+  </svg>
+  <script type="text/javascript" src="./js/build.js"></script>
+</div> 
+
+<p>So first let’s check how to create this fill pattern. The code below shows the pattern definition. Basically with any <span class="caps">SVG</span> element fill pattern can be created, here hatch pattern is formed with path element. Read more about <a href="http://designmodo.com/svg-patterns/"><span class="caps">SVG</span> patterns</a> for detailed&nbsp;explanation. </p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mapArea"</span> <span class="attribute">style</span>=<span class="value">"width: 100%;"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">svg</span> <span class="attribute">id</span>=<span class="value">"map"</span> <span class="attribute">xmlns</span>=<span class="value">"http://www.w3.org/2000/svg"</span> <span class="attribute">x</span>=<span class="value">"0"</span> <span class="attribute">y</span>=<span class="value">"0"</span> &gt;</span>
+  <span class="tag">&lt;<span class="title">defs</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">pattern</span> <span class="attribute">id</span>=<span class="value">"hatch0"</span> <span class="attribute">patternUnits</span>=<span class="value">"userSpaceOnUse"</span>
+        <span class="attribute">x</span>=<span class="value">"0"</span> <span class="attribute">y</span>=<span class="value">"0"</span> <span class="attribute">width</span>=<span class="value">"10"</span> <span class="attribute">height</span>=<span class="value">"10"</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">g</span> <span class="attribute">style</span>=<span class="value">"fill:none; stroke:#fff; stroke-width:2"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">path</span> <span class="attribute">d</span>=<span class="value">"M-1,1 l2,-2 M0,10 l10,-10 M9,11 l2,-2"</span>/&gt;</span>
+      <span class="tag">&lt;/<span class="title">g</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">pattern</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">defs</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"./js/build.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre>
+<p>And now if we see the JavaScript code for usage of pattern, its quite&nbsp;easy:</p>
+<pre><code class="lang-javascript"><span class="number">34</span>   <span class="comment">// process every feature</span>
+<span class="number">35</span>   geojson.features.forEach(<span class="function"><span class="keyword">function</span><span class="params">(f)</span> {</span>
+<span class="number">36</span>     <span class="keyword">var</span> svgString, svg;
+<span class="number">37</span>     svgString = convertor.convert(
+<span class="number">38</span>       f,
+<span class="number">39</span>       {attributes: {<span class="string">'style'</span>: <span class="string">'fill:url(#hatch0)'</span>}});
+<span class="number">40</span>     svg = parseSVG(svgString);
+<span class="number">41</span>     svgMap.appendChild(svg);
+<span class="number">42</span>   });
+</code></pre>
+<p>We just pass the fill style while converting each feature to <span class="caps">SVG</span> path element. The above code is part of the JavaScript <a href="https://github.com/maps-on-blackboard/background-map/blob/master/js/main.js">main file</a>. Different patterns can be passed to geojson features based on your classification.Thematic mapping with <a href="https://www.npmjs.com/package/geojson2svg">geojson2svg</a> has been explained in my <a href="http://maps-on-blackboard.com/tag/thematic-map/">previous blogs</a>.</p>
+<p><strong>Note: Each article in this blog is an individual project. Here is the <a href="https://github.com/maps-on-blackboard/background-map/">source code</a> for this article’s&nbsp;map.</strong></p>
+</section>
+          <div id="social" class="social">
+            <div class="pw-widget pw-size-medium">
+             <a class="pw-button-twitter"></a>
+             <a class="pw-button-googleplus"></a>
+             <a class="pw-button-linkedin"></a>
+             <a class="pw-button-gmail"></a>
+             <a class="pw-button-wordpress"></a>
+             <a class="pw-button-email"></a>
+             <a class="pw-button-facebook"></a>
+            </div>
+            <script src="http://i.po.st/static/v3/post-widget.js#publisherKey=kcgsqhekab9c9t58t7ru&retina=true" type="text/javascript"></script>
+          </div>
+          <div id="disqus_thread"></div><div id="disqus_thread"></div>
+          <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_shortname = 'mapsonblackboardcom';
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             (function() {
+                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+             })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="copy">
+          <p>&copy; 2015 Gagan Bansal &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a><span>&nbsp;and&nbsp;</span><a href="http://pages.github.com">GitHub Pages </a><span>.&nbsp;</span><span>Source code for this &nbsp;</span><a href="https://github.com/maps-on-blackboard/maps-on-blackboard-wintersmith">blog</a>
+            <a href="https://twitter.com/MapOnBlackboard" class="twitter-follow-button" data-show-count="false">follow me</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+          </p>
+        </section>
+      </div>
+    </footer><script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-60457223-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </body>
+</html>

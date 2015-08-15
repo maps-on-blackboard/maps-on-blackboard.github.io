@@ -5,9 +5,62 @@
     <atom:link href="http://maps-on-blackboard.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://maps-on-blackboard.com</link>
     <description>Learn how to create online maps with lot of flexibility</description>
-    <pubDate>Sat, 01  Aug 2015 20:00:00 -0400</pubDate>
+    <pubDate>Fri, 14  Aug 2015 20:00:00 -0400</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Map with background filled as SVG pattern</title>
+      <link>http://maps-on-blackboard.com/articles/background-map/</link>
+      <pubDate>Fri, 14  Aug 2015 20:00:00 -0400</pubDate>
+      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/background-map/</guid>
+      <author></author>
+      <description>&lt;p&gt;I wanted to use svg fill patterns for thematic maps. I found an interesting library &lt;a href=&quot;https://github.com/iros/patternfills&quot;&gt;patternfills&lt;/a&gt; and filled the whole world with one of the pattern. Defining SVG patterns and using with &lt;a href=&quot;https://github.com/gagan-bansal/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt; was quite easy. I’ll explain the basic usage of SVG fill patterns here. &lt;/p&gt;
+&lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;
+&lt;p&gt;Here is the map &lt;/p&gt;
+&lt;div id=&quot;mapArea&quot; style=&quot;width: 100%;&quot;&gt;
+  &lt;svg id=&quot;map&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; x=&quot;0&quot; y=&quot;0&quot; &gt;
+  &lt;defs&gt;
+    &lt;pattern id=&quot;hatch0&quot; patternUnits=&quot;userSpaceOnUse&quot;
+        x=&quot;0&quot; y=&quot;0&quot; width=&quot;10&quot; height=&quot;10&quot;&gt;
+      &lt;g style=&quot;fill:none; stroke:#fff; stroke-width:2&quot;&gt;
+        &lt;path d=&quot;M-1,1 l2,-2 M0,10 l10,-10 M9,11 l2,-2&quot;/&gt;
+      &lt;/g&gt;
+    &lt;/pattern&gt;
+  &lt;defs&gt;
+  &lt;/svg&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;./js/build.js&quot;&gt;&lt;/script&gt;
+&lt;/div&gt; 
+
+&lt;p&gt;So first let’s check how to create this fill pattern. The code below shows the pattern definition. Basically with any SVG element fill pattern can be created, here hatch pattern is formed with path element. Read more about &lt;a href=&quot;http://designmodo.com/svg-patterns/&quot;&gt;SVG patterns&lt;/a&gt; for detailed explanation. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;mapArea&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;style&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;width: 100%;&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;svg&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;map&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;xmlns&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;http://www.w3.org/2000/svg&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;x&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;0&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;y&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;0&quot;&lt;/span&gt; &amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;defs&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;hatch0&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;patternUnits&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;userSpaceOnUse&quot;&lt;/span&gt;
+        &lt;span class=&quot;attribute&quot;&gt;x&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;0&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;y&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;0&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;10&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;10&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;style&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;fill:none; stroke:#fff; stroke-width:2&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;d&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;M-1,1 l2,-2 M0,10 l10,-10 M9,11 l2,-2&quot;&lt;/span&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;g&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;pattern&lt;/span&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;defs&lt;/span&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;svg&lt;/span&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;type&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt; &lt;span class=&quot;attribute&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;value&quot;&gt;&quot;./js/build.js&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;javascript&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now if we see the JavaScript code for usage of pattern, its quite easy:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;number&quot;&gt;34&lt;/span&gt;   &lt;span class=&quot;comment&quot;&gt;// process every feature&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;35&lt;/span&gt;   geojson.features.forEach(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(f)&lt;/span&gt; {&lt;/span&gt;
+&lt;span class=&quot;number&quot;&gt;36&lt;/span&gt;     &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; svgString, svg;
+&lt;span class=&quot;number&quot;&gt;37&lt;/span&gt;     svgString = convertor.convert(
+&lt;span class=&quot;number&quot;&gt;38&lt;/span&gt;       f,
+&lt;span class=&quot;number&quot;&gt;39&lt;/span&gt;       {attributes: {&lt;span class=&quot;string&quot;&gt;'style'&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;'fill:url(#hatch0)'&lt;/span&gt;}});
+&lt;span class=&quot;number&quot;&gt;40&lt;/span&gt;     svg = parseSVG(svgString);
+&lt;span class=&quot;number&quot;&gt;41&lt;/span&gt;     svgMap.appendChild(svg);
+&lt;span class=&quot;number&quot;&gt;42&lt;/span&gt;   });
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We just pass the fill style while converting each feature to SVG path element. The above code is part of the JavaScript &lt;a href=&quot;https://github.com/maps-on-blackboard/background-map/blob/master/js/main.js&quot;&gt;main file&lt;/a&gt;. Different patterns can be passed to geojson features based on your classification.Thematic mapping with &lt;a href=&quot;https://www.npmjs.com/package/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt; has been explained in my &lt;a href=&quot;http://maps-on-blackboard.com/tag/thematic-map/&quot;&gt;previous blogs&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note: Each article in this blog is an individual project. Here is the &lt;a href=&quot;https://github.com/maps-on-blackboard/background-map/&quot;&gt;source code&lt;/a&gt; for this article’s map.&lt;/strong&gt;&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Can you rotate and pinch the SVG map?</title>
       <link>http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/</link>
