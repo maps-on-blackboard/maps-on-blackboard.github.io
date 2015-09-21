@@ -24,7 +24,9 @@
 <h2 id="-"> </h2>
 <p>A lot of processing is required to create raster map tiles at back end. Yes there are many steps with many software to generate <span class="caps">OSM</span> tiles with road data. But on the other hand consuming these map tiles is very easy at browser end. We’ll see in this blog how easy it is to display map of required area with raster map tiles in particular for spherical mercator commonly known as web mercator&nbsp;projection. </p>
 <p>Here is the map with spherical mercator projected image tiles using npm module <a href="https://www.npmjs.com/package/map-the-tiles">map-the-tiles</a>. You can change the center, zoom and rotation of this map. In the current example map can not be dragged or zoomed, the idea is to show the calculation of map tiles at proper&nbsp;place.</p>
-<p><div id="mapArea"><div id="viewPort"><div id="tilesContainer"></div></div></div>
+<p><div id="mapArea"><div id="viewPort"><div id="tilesContainer"></div></div>
+  <div class="credit">Map Tiles © <a href="//www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div>
+</div>
 <span> Center (long, lat) </span><input type="text" id="center" value="-71.147, 42.472" style="width:150px"/> <span> Zoom </span> <input type="number" id="zoom" value="9" style="width:50px" /> <span> Rotation (deg) </span><input type="text" id="rotation" style="width:50px;" value="30"/><input id="zoomTo" type="button" value="Zoom To" /></p>
 <script type="text/javascript" src="./js/build.js"></script>
 

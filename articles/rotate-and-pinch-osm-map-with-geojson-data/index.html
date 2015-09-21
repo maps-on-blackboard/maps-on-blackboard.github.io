@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>Maps on Blackboard
+    </title>
+    <link rel="alternate" href="http://maps-on-blackboard.com/feed.xml" type="application/rss+xml" title="Learn how to create online maps with lot of flexibility">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="./css/maps.css">
+  </head>
+  <body class="article-detail">
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Rotate and pinch OSM map with geojson data</h1>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>Here goes the fully navigable (pinch, drag and rotate) <span class="caps">OSM</span> map overlaid with GeoJSON data. In fact many framework support that (except rotation) where you can configure source of the map tiles and your sloppy map is ready. While here my effort is to make the maps application modular you should be able to choose your own choice of modules like for interaction use Hammer.js or jQuery Touchy.
+</br>
+</br>
+Two of my previous articles <a href="http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/">Can you rotate and pinch the <span class="caps">SVG</span> map?</a> and <a href="http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/">Map of <span class="caps">OSM</span> tiles with rotation</a> explain maps navigation of <span class="caps">SVG</span> map and mapping of OSM tiles respectively. For SVG map navigation I had used <a href="https://github.com/gagan-bansal/emptymap.js">emptymap.js</a> for maps calculations and <a href="http://hammerjs.github.io/">Hammer.js</a> for screen interaction. To make map with <span class="caps">OSM</span> tiles I had used <a href="https://github.com/gagan-bansal/map-the-tiles">map-the-tiles</a> that calculates the image tiles for given map center, zoom and&nbsp;rotation. </p>
+<p>Now I have created a navigable map with <span class="caps">OSM</span> tiles and GeoJSON data overlaid as SVG. emptymap.js module has the functionality to handle maps interactions on SVG (scalable layer) and image tiles (non-scalable layer) by applying the transformation matrix to respective HTML elements. These two previous articles <a href="http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/">Can you rotate and pinch the <span class="caps">SVG</span> map?</a> and <a href="http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/">Map of <span class="caps">OSM</span> tiles with rotation</a> explains in detail the concept and functionality of emptymap.js and map-the-tiles. So please go through these articles before continuing&nbsp;here.</p>
+<h2 id="-"> </h2>
+<p>I am excited to show the map first then in detail we’ll discuss the&nbsp;code.</p>
+<pre id="viewJSON" style="background-color:#eee;font-size:12px;"> View </pre>
+
+<p><div id="map" class="rt-map">
+  <div class="pannel">
+    <div id="zoomin" class="icon">
+     <span>+</span> 
+    </div>
+    <div id="zoomout" class="icon">
+     <span class="left-margin">-</span> 
+    </div>
+    <div id="anticlockwise" class="icon">
+      <img src="./img/counterclockwise.png" />
+    </div>
+    <div id="clockwise" class="icon">
+      <img src="./img/clockwise.png" />
+    </div>
+  </div> 
+  <div class="credit">Icons made by <a href="http://www.flaticon.com/authors/linh-pham" title="Linh Pham">Linh Pham</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"><span class="caps">CC</span> BY 3.0</a>, Map Tiles © <a href="//www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div>
+  <div class="rt-viewport">
+    <div class="rt-nonscalable-stack">
+      <div class="rt-tile-stack">
+        <div id="osm" class="rt-tile-layer"></div> 
+      </div>
+    </div>
+    <div class="rt-scalable-stack">
+      <svg class="rt-svg" xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="100%" height="100%">
+        <g class="rt-svg-stack"></g>
+      </svg>
+    </div>
+  </div>
+</div> </p>
+<p><ul id="legend">
+  <li> Population&nbsp;map </li>
+  <li> <span class="box l"></span><span class="label"> &lt;&#61; 30m</span>
+  <li> <span class="box m"></span><span class="label"> &gt; 30m and &lt;&#61; 60m</span>
+  <li> <span class="box h"></span><span class="label"> &gt; 60m</span>
+</ul></p>
+<script type="text/javascript" src="./js/build.min.js"></script>
+
+<p>Here is the <span class="caps">HTML</span> component of the&nbsp;map:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"map"</span> <span class="attribute">class</span>=<span class="value">"rt-map"</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"rt-viewport"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"rt-nonscalable-stack"</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"rt-tile-stack"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"osm"</span> <span class="attribute">class</span>=<span class="value">"rt-tile-layer"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span> 
+      <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"rt-scalable-stack"</span>&gt;</span>
+      <span class="tag">&lt;<span class="title">svg</span> <span class="attribute">class</span>=<span class="value">"rt-svg"</span> <span class="attribute">xmlns</span>=<span class="value">"http://www.w3.org/2000/svg"</span> <span class="attribute">x</span>=<span class="value">"0"</span> <span class="attribute">y</span>=<span class="value">"0"</span> <span class="attribute">width</span>=<span class="value">"100%"</span> <span class="attribute">height</span>=<span class="value">"100%"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">g</span> <span class="attribute">class</span>=<span class="value">"rt-svg-stack"</span>&gt;</span><span class="tag">&lt;/<span class="title">g</span>&gt;</span>
+      <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre>
+<p>There are two way to render the map one is with <span class="caps">SVG</span> that can be scaled and other way is pre rendered png image or rendering on canvas. In second option we can not scale the data at browser. So handling of navigation (zoom, pan and rotation) is slightly different for each. Transformation matrix is calculated in <a href="https://github.com/gagan-bansal/emptymap.js">emptymap.js</a> for given interaction at viewport. The calculated  matrix values are attached to the scalable stack and <span class="caps">SVG</span> is scaled accordingly. Same transformation matrix can also be applied to the non scalable stack also during the interaction. So while zooming in map tile images would be scaled if same transformation is applied but we need to load the new map tiles at every increment of the zoom level or end of interaction. Reloading the map tiles is done in two steps first we apply another transformation matrix (tileMatrix) that emptymap.js passes in callback. This (tileMatrix) transformation matrix contains only rotation. Now in second step set of tiles to cover viewport for given maps’ center, zoom and rotation can be calculated with help of <a href="https://github.com/gagan-bansal/map-the-tiles">map-the-tiles</a>&nbsp;module.</p>
+<p>Now we’ll see what changes are done in two previous articles code base to get the combined map of <span class="caps">SVG</span> and map tiles. You can go through the complete code in <a href="https://github.com/maps-on-blackboard/rotate-and-pinch-osm-map-with-geojson-data/blob/master/js/main.js">main.js</a>&nbsp;file.</p>
+<p>In <code>loadTiles</code> function we attach <code>tileMatrix</code> to map tiles container div with plain JavaScript. And in <code>getTiles</code> function we pass rotation also along with center and&nbsp;zoom.     </p>
+<pre><code class="lang-javascript"><span class="number">263</span>   <span class="keyword">var</span> cont = document.querySelector(<span class="string">'.rt-nonscalable-stack'</span>);
+<span class="number">264</span>   cont.style.transform = <span class="string">'matrix('</span>+ tileMatrix.join(<span class="string">','</span>) + <span class="string">')'</span>;
+<span class="number">265</span>   <span class="keyword">var</span> tiles = tiler.getTiles(
+<span class="number">266</span>     {x:view.center[<span class="number">0</span>], y: view.center[<span class="number">1</span>]}, 
+<span class="number">267</span>     view.zoom,
+<span class="number">268</span>     view.rotation
+<span class="number">269</span>   );
+</code></pre>
+<p>To handle the map’s state after or during interaction <code>handleMapState</code> function is&nbsp;used</p>
+<pre><code class="lang-javascript"> <span class="number">58</span> <span class="function"><span class="keyword">function</span> <span class="title">handleMapState</span><span class="params">(err,state,refreshTiles)</span> {</span>
+ <span class="number">59</span>   <span class="keyword">if</span>(err) {
+ <span class="number">60</span>     console.log(<span class="string">'map state error: '</span>+ err);
+ <span class="number">61</span>     <span class="keyword">return</span>;
+ <span class="number">62</span>   }
+ <span class="number">63</span>   <span class="keyword">var</span> svgLayer = document.querySelector(<span class="string">'.rt-svg-stack'</span>);
+ <span class="number">64</span>   svgLayer.setAttribute(<span class="string">'transform'</span>,<span class="string">'matrix('</span>+state.matrix.join(<span class="string">', '</span>)+<span class="string">')'</span>);
+ <span class="number">65</span>   <span class="keyword">var</span> cont = document.querySelector(<span class="string">'.rt-nonscalable-stack'</span>);
+ <span class="number">66</span>   cont.style.transform = <span class="string">'matrix('</span>+ state.tileMatrix.join(<span class="string">','</span>) + <span class="string">')'</span>;
+ <span class="number">67</span>   <span class="keyword">if</span> (refreshTiles) {
+ <span class="number">68</span>     emap.resetTileMatrix({
+ <span class="number">69</span>       callback: <span class="function"><span class="keyword">function</span><span class="params">(err, state)</span> {</span>
+ <span class="number">70</span>         loadTiles(state.map.getView(), state.tileMatrix,<span class="string">'osm'</span>);
+ <span class="number">71</span>       }
+ <span class="number">72</span>     });
+ <span class="number">73</span>   }
+ <span class="number">74</span>   <span class="comment">//show maps current view above map</span>
+ <span class="number">75</span>   document.getElementById(<span class="string">'viewJSON'</span>).innerHTML = <span class="built_in"><span class="caps">JSON</span></span>.stringify(
+ <span class="number">76</span>     state.map.getView(),<span class="literal">null</span>, <span class="number">2</span>);
+ <span class="number">77</span> }
+</code></pre>
+<p>During the interaction <code>state.matrix</code> (line 66) is attached to tile container div. At the end of interaction <code>refreshTiles</code> is set <code>true</code> and now <code>state.tileMatrix</code> is attached insisted of <code>state.matrix</code>.</p>
+<p>Another case where change is required is pinch. At the end of pinch event its not necessary that scale change is multiple of 2 or aligned with map tile resolution. So first we need to get nearest zoom level then set that zoom level to the map and load tiles. Here is snippet for ‘pinchend’ event&nbsp;callback:</p>
+<pre><code class="lang-javascript"><span class="number">147</span> mc.on(<span class="string">'pinchend'</span>, <span class="function"><span class="keyword">function</span><span class="params">(ev)</span> {</span>
+<span class="number">148</span>   console.log(<span class="string">'pinchend'</span>);
+<span class="number">149</span>   <span class="keyword">var</span> view = emap.getView();
+<span class="number">150</span>   console.log(<span class="string">'nearest zoom: '</span>+ emap.getNearestZoom());
+<span class="number">151</span>   view.zoom = emap.getNearestZoom();
+<span class="number">152</span>   emap.setView({
+<span class="number">153</span>     view: view,
+<span class="number">154</span>     callback: <span class="function"><span class="keyword">function</span><span class="params">(err, state)</span> {</span>
+<span class="number">155</span>       <span class="keyword">var</span> svgLayer = document.querySelector(<span class="string">'.rt-svg-stack'</span>);
+<span class="number">156</span>       svgLayer.setAttribute(<span class="string">'transform'</span>,<span class="string">'matrix('</span>+state.matrix.join(<span class="string">', '</span>)+<span class="string">')'</span>);
+<span class="number">157</span>       loadTiles(state.map.getView(), state.tileMatrix,<span class="string">'osm'</span>);
+<span class="number">158</span>       <span class="comment">//show maps current view above map</span>
+<span class="number">159</span>       document.getElementById(<span class="string">'viewJSON'</span>).innerHTML = <span class="built_in"><span class="caps">JSON</span></span>.stringify(
+<span class="number">160</span>       state.map.getView(),<span class="literal">null</span>, <span class="number">2</span>);
+<span class="number">161</span>     }
+<span class="number">162</span>   });
+<span class="number">163</span> });
+</code></pre>
+<p>So we get a fully navigable map with combination of different modules. Well there is lot of coding but at the end you get very flexible map that you can bend very easily the way you want. Basically for data visualization applications where a standard map is very boring and will not server your purpose as you always need a new way for presenting the data such type of modular code is very&nbsp;handy. </p>
+<p><strong>Note: Each article in this blog is an individual project. Here is the <a href="https://github.com/maps-on-blackboard/rotate-and-pinch-osm-map-with-geojson-data">source code</a> for this article’s&nbsp;map.</strong></p>
+</section>
+          <div id="social" class="social">
+            <div class="pw-widget pw-size-medium">
+             <a class="pw-button-twitter"></a>
+             <a class="pw-button-googleplus"></a>
+             <a class="pw-button-linkedin"></a>
+             <a class="pw-button-gmail"></a>
+             <a class="pw-button-wordpress"></a>
+             <a class="pw-button-email"></a>
+             <a class="pw-button-facebook"></a>
+            </div>
+            <script src="http://i.po.st/static/v3/post-widget.js#publisherKey=kcgsqhekab9c9t58t7ru&retina=true" type="text/javascript"></script>
+          </div>
+          <div id="disqus_thread"></div><div id="disqus_thread"></div>
+          <script type="text/javascript">
+             /* * * CONFIGURATION VARIABLES * * */
+             var disqus_shortname = 'mapsonblackboardcom';
+             /* * * DON'T EDIT BELOW THIS LINE * * */
+             (function() {
+                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+             })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="content-wrap">
+        <div class="nav"><a href="/">« Full blog</a></div>
+        <section class="copy">
+          <p>&copy; 2015 Gagan Bansal &mdash; powered by&nbsp;<a href="https://github.com/jnordberg/wintersmith">Wintersmith</a><span>&nbsp;and&nbsp;</span><a href="http://pages.github.com">GitHub Pages </a><span>.&nbsp;</span><span>Source code for this &nbsp;</span><a href="https://github.com/maps-on-blackboard/maps-on-blackboard-wintersmith">blog</a>
+            <a href="https://twitter.com/MapOnBlackboard" class="twitter-follow-button" data-show-count="false">follow me</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+          </p>
+        </section>
+      </div>
+    </footer><script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-60457223-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </body>
+</html>
