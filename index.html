@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <title>Maps on Blackboard
     </title>
-    <link rel="alternate" href="http://maps-on-blackboard.com/feed.xml" type="application/rss+xml" title="Learn how to create online maps with lot of flexibility">
+    <link rel="alternate" href="http://maps-on-blackboard.github.io/feed.xml" type="application/rss+xml" title="Learn how to create online maps with lot of flexibility">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
     <link rel="stylesheet" href="/css/main.css">
   </head>
@@ -14,7 +14,7 @@
     <header class="header">
       <div class="content-wrap">
         <div class="logo">
-          <h1><a href="http://maps-on-blackboard.com">Maps on Blackboard</a></h1>
+          <h1><a href="http://maps-on-blackboard.github.io">Maps on Blackboard</a></h1>
           <p class="description">Learn how to create online maps with lot of flexibility</p>
         </div>
       </div>
@@ -29,8 +29,8 @@
           <section class="content"><p>Here goes the fully navigable (pinch, drag and rotate) <span class="caps">OSM</span> map overlaid with GeoJSON data. In fact many framework support that (except rotation) where you can configure source of the map tiles and your sloppy map is ready. While here my effort is to make the maps application modular you should be able to choose your own choice of modules like for interaction use Hammer.js or jQuery Touchy.
 </br>
 </br>
-Two of my previous articles <a href="http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/">Can you rotate and pinch the <span class="caps">SVG</span> map?</a> and <a href="http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/">Map of <span class="caps">OSM</span> tiles with rotation</a> explain maps navigation of <span class="caps">SVG</span> map and mapping of OSM tiles respectively. For SVG map navigation I had used <a href="https://github.com/gagan-bansal/emptymap.js">emptymap.js</a> for maps calculations and <a href="http://hammerjs.github.io/">Hammer.js</a> for screen interaction. To make map with <span class="caps">OSM</span> tiles I had used <a href="https://github.com/gagan-bansal/map-the-tiles">map-the-tiles</a> that calculates the image tiles for given map center, zoom and&nbsp;rotation. </p>
-<p>Now I have created a navigable map with <span class="caps">OSM</span> tiles and GeoJSON data overlaid as SVG. emptymap.js module has the functionality to handle maps interactions on SVG (scalable layer) and image tiles (non-scalable layer) by applying the transformation matrix to respective HTML elements. These two previous articles <a href="http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/">Can you rotate and pinch the <span class="caps">SVG</span> map?</a> and <a href="http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/">Map of <span class="caps">OSM</span> tiles with rotation</a> explains in detail the concept and functionality of emptymap.js and map-the-tiles. So please go through these articles before continuing&nbsp;here.</p>
+Two of my previous articles <a href="http://maps-on-blackboard.github.io/articles/can-you-rotate-and-pinch-the-svg-map/">Can you rotate and pinch the <span class="caps">SVG</span> map?</a> and <a href="http://maps-on-blackboard.github.io/articles/osm-tiles-map-with-rotation/">Map of <span class="caps">OSM</span> tiles with rotation</a> explain maps navigation of <span class="caps">SVG</span> map and mapping of OSM tiles respectively. For SVG map navigation I had used <a href="https://github.com/gagan-bansal/emptymap.js">emptymap.js</a> for maps calculations and <a href="http://hammerjs.github.io/">Hammer.js</a> for screen interaction. To make map with <span class="caps">OSM</span> tiles I had used <a href="https://github.com/gagan-bansal/map-the-tiles">map-the-tiles</a> that calculates the image tiles for given map center, zoom and&nbsp;rotation. </p>
+<p>Now I have created a navigable map with <span class="caps">OSM</span> tiles and GeoJSON data overlaid as SVG. emptymap.js module has the functionality to handle maps interactions on SVG (scalable layer) and image tiles (non-scalable layer) by applying the transformation matrix to respective HTML elements. These two previous articles <a href="http://maps-on-blackboard.github.io/articles/can-you-rotate-and-pinch-the-svg-map/">Can you rotate and pinch the <span class="caps">SVG</span> map?</a> and <a href="http://maps-on-blackboard.github.io/articles/osm-tiles-map-with-rotation/">Map of <span class="caps">OSM</span> tiles with rotation</a> explains in detail the concept and functionality of emptymap.js and map-the-tiles. So please go through these articles before continuing&nbsp;here.</p>
 
             <p class="more"><a href="/articles/rotate-and-pinch-osm-map-with-geojson-data/">more</a></p>
           </section>
@@ -50,7 +50,7 @@ Two of my previous articles <a href="http://maps-on-blackboard.com/articles/can-
             <h2><a href="/articles/can-you-rotate-and-pinch-the-svg-map/">Can you rotate and pinch the SVG map?</a></h2>
             <p class="date"><span>02. August 2015</span></p>
           </header>
-          <section class="content"><p>As I am writing the blog you might have guessed that answer is going to be yes. I mean not only drag, pinch and rotation but also retrieving map’s view (center coordinate, zoom level/ resolution and rotation angle) after applying many touch operations. So I want to create all maps navigation features and along with handling of maps view state in maps coordinate system. In some of my previous articles like <a href="http://maps-on-blackboard.com/articles/blog2-thematic-map/">Thematic map with geojson2svg</a> and <a href="http://maps-on-blackboard.com/articles/interactive-map/">Interactive map for data visualization</a> I have explained how easily we can create the <span class="caps">SVG</span> maps with GeoJSON data. In this article I’ll implement <a href="https://github.com/gagan-bansal/emptymap.js">emptymap.js</a> with <a href="http://hammerjs.github.io/">Hammer.js</a> to achieve maps&nbsp;navigation.</p>
+          <section class="content"><p>As I am writing the blog you might have guessed that answer is going to be yes. I mean not only drag, pinch and rotation but also retrieving map’s view (center coordinate, zoom level/ resolution and rotation angle) after applying many touch operations. So I want to create all maps navigation features and along with handling of maps view state in maps coordinate system. In some of my previous articles like <a href="http://maps-on-blackboard.github.io/articles/blog2-thematic-map/">Thematic map with geojson2svg</a> and <a href="http://maps-on-blackboard.github.io/articles/interactive-map/">Interactive map for data visualization</a> I have explained how easily we can create the <span class="caps">SVG</span> maps with GeoJSON data. In this article I’ll implement <a href="https://github.com/gagan-bansal/emptymap.js">emptymap.js</a> with <a href="http://hammerjs.github.io/">Hammer.js</a> to achieve maps&nbsp;navigation.</p>
 
             <p class="more"><a href="/articles/can-you-rotate-and-pinch-the-svg-map/">more</a></p>
           </section>

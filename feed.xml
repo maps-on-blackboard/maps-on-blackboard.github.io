@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Maps on Blackboard</title>
-    <atom:link href="http://maps-on-blackboard.com/feed.xml" rel="self" type="application/rss+xml"></atom:link>
-    <link>http://maps-on-blackboard.com</link>
+    <atom:link href="http://maps-on-blackboard.github.io/feed.xml" rel="self" type="application/rss+xml"></atom:link>
+    <link>http://maps-on-blackboard.github.io</link>
     <description>Learn how to create online maps with lot of flexibility</description>
     <pubDate>Sun, 20 Sep 2015 20:00:00 -0400</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
     <item>
       <title>Rotate and pinch OSM map with geojson data</title>
-      <link>http://maps-on-blackboard.com/articles/rotate-and-pinch-osm-map-with-geojson-data/</link>
+      <link>http://maps-on-blackboard.github.io/articles/rotate-and-pinch-osm-map-with-geojson-data/</link>
       <pubDate>Sun, 20 Sep 2015 20:00:00 -0400</pubDate>
-      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/rotate-and-pinch-osm-map-with-geojson-data/</guid>
+      <guid isPermaLink="true">http://maps-on-blackboard.github.io/articles/rotate-and-pinch-osm-map-with-geojson-data/</guid>
       <author></author>
       <description>&lt;p&gt;Here goes the fully navigable (pinch, drag and rotate) OSM map overlaid with GeoJSON data. In fact many framework support that (except rotation) where you can configure source of the map tiles and your sloppy map is ready. While here my effort is to make the maps application modular you should be able to choose your own choice of modules like for interaction use Hammer.js or jQuery Touchy.
 &lt;/br&gt;
 &lt;/br&gt;
-Two of my previous articles &lt;a href=&quot;http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/&quot;&gt;Can you rotate and pinch the SVG map?&lt;/a&gt; and &lt;a href=&quot;http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/&quot;&gt;Map of OSM tiles with rotation&lt;/a&gt; explain maps navigation of SVG map and mapping of OSM tiles respectively. For SVG map navigation I had used &lt;a href=&quot;https://github.com/gagan-bansal/emptymap.js&quot;&gt;emptymap.js&lt;/a&gt; for maps calculations and &lt;a href=&quot;http://hammerjs.github.io/&quot;&gt;Hammer.js&lt;/a&gt; for screen interaction. To make map with OSM tiles I had used &lt;a href=&quot;https://github.com/gagan-bansal/map-the-tiles&quot;&gt;map-the-tiles&lt;/a&gt; that calculates the image tiles for given map center, zoom and rotation. &lt;/p&gt;
-&lt;p&gt;Now I have created a navigable map with OSM tiles and GeoJSON data overlaid as SVG. emptymap.js module has the functionality to handle maps interactions on SVG (scalable layer) and image tiles (non-scalable layer) by applying the transformation matrix to respective HTML elements. These two previous articles &lt;a href=&quot;http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/&quot;&gt;Can you rotate and pinch the SVG map?&lt;/a&gt; and &lt;a href=&quot;http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/&quot;&gt;Map of OSM tiles with rotation&lt;/a&gt; explains in detail the concept and functionality of emptymap.js and map-the-tiles. So please go through these articles before continuing here.&lt;/p&gt;
+Two of my previous articles &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/can-you-rotate-and-pinch-the-svg-map/&quot;&gt;Can you rotate and pinch the SVG map?&lt;/a&gt; and &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/osm-tiles-map-with-rotation/&quot;&gt;Map of OSM tiles with rotation&lt;/a&gt; explain maps navigation of SVG map and mapping of OSM tiles respectively. For SVG map navigation I had used &lt;a href=&quot;https://github.com/gagan-bansal/emptymap.js&quot;&gt;emptymap.js&lt;/a&gt; for maps calculations and &lt;a href=&quot;http://hammerjs.github.io/&quot;&gt;Hammer.js&lt;/a&gt; for screen interaction. To make map with OSM tiles I had used &lt;a href=&quot;https://github.com/gagan-bansal/map-the-tiles&quot;&gt;map-the-tiles&lt;/a&gt; that calculates the image tiles for given map center, zoom and rotation. &lt;/p&gt;
+&lt;p&gt;Now I have created a navigable map with OSM tiles and GeoJSON data overlaid as SVG. emptymap.js module has the functionality to handle maps interactions on SVG (scalable layer) and image tiles (non-scalable layer) by applying the transformation matrix to respective HTML elements. These two previous articles &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/can-you-rotate-and-pinch-the-svg-map/&quot;&gt;Can you rotate and pinch the SVG map?&lt;/a&gt; and &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/osm-tiles-map-with-rotation/&quot;&gt;Map of OSM tiles with rotation&lt;/a&gt; explains in detail the concept and functionality of emptymap.js and map-the-tiles. So please go through these articles before continuing here.&lt;/p&gt;
 &lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;
 &lt;p&gt;I am excited to show the map first then in detail we’ll discuss the code.&lt;/p&gt;
 &lt;pre id=&quot;viewJSON&quot; style=&quot;background-color:#eee;font-size:12px;&quot;&gt; View &lt;/pre&gt;
@@ -135,9 +135,9 @@ Two of my previous articles &lt;a href=&quot;http://maps-on-blackboard.com/artic
     </item>
     <item>
       <title>Map with background filled as SVG pattern</title>
-      <link>http://maps-on-blackboard.com/articles/background-map/</link>
+      <link>http://maps-on-blackboard.github.io/articles/background-map/</link>
       <pubDate>Fri, 14  Aug 2015 20:00:00 -0400</pubDate>
-      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/background-map/</guid>
+      <guid isPermaLink="true">http://maps-on-blackboard.github.io/articles/background-map/</guid>
       <author></author>
       <description>&lt;p&gt;I wanted to use svg fill patterns for thematic maps. I found an interesting library &lt;a href=&quot;https://github.com/iros/patternfills&quot;&gt;patternfills&lt;/a&gt; and filled the whole world with one of the pattern. Defining SVG patterns and using with &lt;a href=&quot;https://github.com/gagan-bansal/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt; was quite easy. I’ll explain the basic usage of SVG fill patterns here. &lt;/p&gt;
 &lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;
@@ -182,17 +182,17 @@ Two of my previous articles &lt;a href=&quot;http://maps-on-blackboard.com/artic
 &lt;span class=&quot;number&quot;&gt;41&lt;/span&gt;     svgMap.appendChild(svg);
 &lt;span class=&quot;number&quot;&gt;42&lt;/span&gt;   });
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We just pass the fill style while converting each feature to SVG path element. The above code is part of the JavaScript &lt;a href=&quot;https://github.com/maps-on-blackboard/background-map/blob/master/js/main.js&quot;&gt;main file&lt;/a&gt;. Different patterns can be passed to geojson features based on your classification.Thematic mapping with &lt;a href=&quot;https://www.npmjs.com/package/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt; has been explained in my &lt;a href=&quot;http://maps-on-blackboard.com/tag/thematic-map/&quot;&gt;previous blogs&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We just pass the fill style while converting each feature to SVG path element. The above code is part of the JavaScript &lt;a href=&quot;https://github.com/maps-on-blackboard/background-map/blob/master/js/main.js&quot;&gt;main file&lt;/a&gt;. Different patterns can be passed to geojson features based on your classification.Thematic mapping with &lt;a href=&quot;https://www.npmjs.com/package/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt; has been explained in my &lt;a href=&quot;http://maps-on-blackboard.github.io/tag/thematic-map/&quot;&gt;previous blogs&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Note: Each article in this blog is an individual project. Here is the &lt;a href=&quot;https://github.com/maps-on-blackboard/background-map/&quot;&gt;source code&lt;/a&gt; for this article’s map.&lt;/strong&gt;&lt;/p&gt;
 </description>
     </item>
     <item>
       <title>Can you rotate and pinch the SVG map?</title>
-      <link>http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/</link>
+      <link>http://maps-on-blackboard.github.io/articles/can-you-rotate-and-pinch-the-svg-map/</link>
       <pubDate>Sat, 01  Aug 2015 20:00:00 -0400</pubDate>
-      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/</guid>
+      <guid isPermaLink="true">http://maps-on-blackboard.github.io/articles/can-you-rotate-and-pinch-the-svg-map/</guid>
       <author></author>
-      <description>&lt;p&gt;As I am writing the blog you might have guessed that answer is going to be yes. I mean not only drag, pinch and rotation but also retrieving map’s view (center coordinate, zoom level/ resolution and rotation angle) after applying many touch operations. So I want to create all maps navigation features and along with handling of maps view state in maps coordinate system. In some of my previous articles like &lt;a href=&quot;http://maps-on-blackboard.com/articles/blog2-thematic-map/&quot;&gt;Thematic map with geojson2svg&lt;/a&gt; and &lt;a href=&quot;http://maps-on-blackboard.com/articles/interactive-map/&quot;&gt;Interactive map for data visualization&lt;/a&gt; I have explained how easily we can create the SVG maps with GeoJSON data. In this article I’ll implement &lt;a href=&quot;https://github.com/gagan-bansal/emptymap.js&quot;&gt;emptymap.js&lt;/a&gt; with &lt;a href=&quot;http://hammerjs.github.io/&quot;&gt;Hammer.js&lt;/a&gt; to achieve maps navigation.&lt;/p&gt;
+      <description>&lt;p&gt;As I am writing the blog you might have guessed that answer is going to be yes. I mean not only drag, pinch and rotation but also retrieving map’s view (center coordinate, zoom level/ resolution and rotation angle) after applying many touch operations. So I want to create all maps navigation features and along with handling of maps view state in maps coordinate system. In some of my previous articles like &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/blog2-thematic-map/&quot;&gt;Thematic map with geojson2svg&lt;/a&gt; and &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/interactive-map/&quot;&gt;Interactive map for data visualization&lt;/a&gt; I have explained how easily we can create the SVG maps with GeoJSON data. In this article I’ll implement &lt;a href=&quot;https://github.com/gagan-bansal/emptymap.js&quot;&gt;emptymap.js&lt;/a&gt; with &lt;a href=&quot;http://hammerjs.github.io/&quot;&gt;Hammer.js&lt;/a&gt; to achieve maps navigation.&lt;/p&gt;
 &lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;
 &lt;p&gt;Maps navigation is composition of two concepts, screen interaction and maps rendering. Screen interactions are pinch, drag, double tap and rotation. The second part is maps rendering according to the screen interaction like double tap as zoom in and drag as pan. Hammer.js is wonderful library for screen interactions, it support all touch interactions/gestures with appropriate measurements like drag/pan as movement in pixels in x and y direction. So given movement in pixels how much should the map be shifted? For this purpose I have developed the &lt;a href=&quot;https://github.com/gagan-bansal/emptymap.js&quot;&gt;emptymap.js&lt;/a&gt; module. As the name suggests it does not contain the maps rather helps in maps navigation. emptymap.js helps in calculating the &lt;a href=&quot;https://developer.mozilla.org/en/docs/Web/SVG/Attribute/transform&quot;&gt;transformation matrix&lt;/a&gt; for given drag movement or other interactions measurement. This transformation matrix can be set to SVG as CSS transform property or SVG attribute to achieve the interaction effect on maps. emptymap.js also maintains the maps current state so at any point of time you can retrieve the maps view values center, zoom level/resolution and rotation.    &lt;/p&gt;
 &lt;p&gt;Before discussing the code in detail let’s pinch and rotate this SVG map: &lt;/p&gt;
@@ -218,7 +218,7 @@ Two of my previous articles &lt;a href=&quot;http://maps-on-blackboard.com/artic
   &lt;li&gt; &lt;span class=&quot;box m&quot;&gt;&lt;/span&gt;&lt;span class=&quot;label&quot;&gt; &amp;gt; 30m and &amp;lt;&amp;#61; 60m&lt;/span&gt;
   &lt;li&gt; &lt;span class=&quot;box h&quot;&gt;&lt;/span&gt;&lt;span class=&quot;label&quot;&gt; &amp;gt; 60m&lt;/span&gt;
 &lt;/ul&gt;
-&lt;strong&gt;Use &lt;a href=&quot;http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/map1.html&quot;&gt;this map&lt;/a&gt; to emulate touch for desktop.&lt;/strong&gt;&lt;/p&gt;
+&lt;strong&gt;Use &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/can-you-rotate-and-pinch-the-svg-map/map1.html&quot;&gt;this map&lt;/a&gt; to emulate touch for desktop.&lt;/strong&gt;&lt;/p&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;./js/build.min.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;Here is the HTML component of the map:&lt;/p&gt;
@@ -351,11 +351,11 @@ Two of my previous articles &lt;a href=&quot;http://maps-on-blackboard.com/artic
     </item>
     <item>
       <title>Map of OSM tiles with rotation</title>
-      <link>http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/</link>
+      <link>http://maps-on-blackboard.github.io/articles/osm-tiles-map-with-rotation/</link>
       <pubDate>Sat, 18 Jul 2015 20:00:00 -0400</pubDate>
-      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/</guid>
+      <guid isPermaLink="true">http://maps-on-blackboard.github.io/articles/osm-tiles-map-with-rotation/</guid>
       <author></author>
-      <description>&lt;p&gt;This article is rewrite of my previous blog &lt;a href=&quot;http://maps-on-blackboard.com/articles/web-mercator-tiles-map/&quot;&gt;Map of web mercator tiles&lt;/a&gt; where I used &lt;a href=&quot;https://www.npmjs.com/package/web-mercator-tiles&quot;&gt;web-mercator-tiles&lt;/a&gt; module to create the OSM tiles map. I have done two improvements in the new module &lt;a href=&quot;https://www.npmjs.com/package/map-the-tiles&quot;&gt;map-the-tiles&lt;/a&gt;. First it can be used with other projections also, though default is spherical mercator. Second is very exciting, rotated view its quite easy to rotate the map now with this module. We’ll explore in detail the module in this blog.&lt;/p&gt;
+      <description>&lt;p&gt;This article is rewrite of my previous blog &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/web-mercator-tiles-map/&quot;&gt;Map of web mercator tiles&lt;/a&gt; where I used &lt;a href=&quot;https://www.npmjs.com/package/web-mercator-tiles&quot;&gt;web-mercator-tiles&lt;/a&gt; module to create the OSM tiles map. I have done two improvements in the new module &lt;a href=&quot;https://www.npmjs.com/package/map-the-tiles&quot;&gt;map-the-tiles&lt;/a&gt;. First it can be used with other projections also, though default is spherical mercator. Second is very exciting, rotated view its quite easy to rotate the map now with this module. We’ll explore in detail the module in this blog.&lt;/p&gt;
 &lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;
 &lt;p&gt;A lot of processing is required to create raster map tiles at back end. Yes there are many steps with many software to generate OSM tiles with road data. But on the other hand consuming these map tiles is very easy at browser end. We’ll see in this blog how easy it is to display map of required area with raster map tiles in particular for spherical mercator commonly known as web mercator projection. &lt;/p&gt;
 &lt;p&gt;Here is the map with spherical mercator projected image tiles using npm module &lt;a href=&quot;https://www.npmjs.com/package/map-the-tiles&quot;&gt;map-the-tiles&lt;/a&gt;. You can change the center, zoom and rotation of this map. In the current example map can not be dragged or zoomed, the idea is to show the calculation of map tiles at proper place.&lt;/p&gt;
@@ -445,11 +445,11 @@ Then its required to find the tiles that intersect with viewport. To find the in
     </item>
     <item>
       <title>Interactive map for data visualization</title>
-      <link>http://maps-on-blackboard.com/articles/interactive-map/</link>
+      <link>http://maps-on-blackboard.github.io/articles/interactive-map/</link>
       <pubDate>Sat, 30 May 2015 20:00:00 -0400</pubDate>
-      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/interactive-map/</guid>
+      <guid isPermaLink="true">http://maps-on-blackboard.github.io/articles/interactive-map/</guid>
       <author></author>
-      <description>&lt;p&gt;As conceptualized by me &lt;a href=&quot;http://maps-on-blackboard.com/articles/blog1-basic-map/&quot;&gt;earlier&lt;/a&gt; the different components of online maps creation are data, visual rendering, converter and interaction. Once again I’ll brief about these components here, but In this article we’ll see a nice example of interaction. We’ll visualize the &lt;a href=&quot;http://siteresources.worldbank.org/INTPROSPECTS/Resources/334934-1288990760745/Bilateral_Migration_Matrix_2013.xlsx&quot;&gt;bilateral migration&lt;/a&gt; ‘to’ and ‘from’ a country by tapping the desired country on map.&lt;/p&gt;
+      <description>&lt;p&gt;As conceptualized by me &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/blog1-basic-map/&quot;&gt;earlier&lt;/a&gt; the different components of online maps creation are data, visual rendering, converter and interaction. Once again I’ll brief about these components here, but In this article we’ll see a nice example of interaction. We’ll visualize the &lt;a href=&quot;http://siteresources.worldbank.org/INTPROSPECTS/Resources/334934-1288990760745/Bilateral_Migration_Matrix_2013.xlsx&quot;&gt;bilateral migration&lt;/a&gt; ‘to’ and ‘from’ a country by tapping the desired country on map.&lt;/p&gt;
 &lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;
 &lt;p&gt;Spatial (geographic) &lt;strong&gt;data&lt;/strong&gt; is foundation for the visualization and no doubt the information data is the cause for visualization. Information is the data that we want to show to user like population or GDP of countries and superimposing this data on maps makes information more readable. For spatial data &lt;a href=&quot;https://en.wikipedia.org/wiki/GeoJSON&quot;&gt;GeoJSON&lt;/a&gt; is suitable format as an extension of JSON.&lt;/p&gt;
 &lt;p&gt;For &lt;strong&gt;rendering&lt;/strong&gt; of geometries, there are two options SVG and Canvas. SVG is more convenient for interaction and styling. With CSS itself you can change the style of a single SVG element. DOM events are supported on SVG elements.&lt;/p&gt;
@@ -657,9 +657,9 @@ Australia                     0            0        167      0               61 
     </item>
     <item>
       <title>Map of web mercator tiles</title>
-      <link>http://maps-on-blackboard.com/articles/web-mercator-tiles-map/</link>
+      <link>http://maps-on-blackboard.github.io/articles/web-mercator-tiles-map/</link>
       <pubDate>Tue, 14 Apr 2015 20:00:00 -0400</pubDate>
-      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/web-mercator-tiles-map/</guid>
+      <guid isPermaLink="true">http://maps-on-blackboard.github.io/articles/web-mercator-tiles-map/</guid>
       <author></author>
       <description>&lt;p&gt;A lot of processing is required to create raster map tiles at back end. Yes there are many steps with many software to generate OSM tiles with road data. But on the other hand consuming these map tiles is very easy at browser end. We’ll see in this blog how easy it is to display map of required area with raster map tile in particular for spherical mercator commonly known as web mercator projection. &lt;/p&gt;
 &lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;
@@ -750,11 +750,11 @@ Australia                     0            0        167      0               61 
     </item>
     <item>
       <title>Thematic map with geojson2svg</title>
-      <link>http://maps-on-blackboard.com/articles/blog2-thematic-map/</link>
+      <link>http://maps-on-blackboard.github.io/articles/blog2-thematic-map/</link>
       <pubDate>Sat, 14 Mar 2015 20:00:00 -0400</pubDate>
-      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/blog2-thematic-map/</guid>
+      <guid isPermaLink="true">http://maps-on-blackboard.github.io/articles/blog2-thematic-map/</guid>
       <author></author>
-      <description>&lt;p&gt;In my previous blog &lt;a href=&quot;http://maps-on-blackboard.com/articles/blog1-basic-map/&quot;&gt;Basic map with geojson2svg&lt;/a&gt; we have seen that how easily we can create svg world map using &lt;a href=&quot;https://github.com/gagan-bansal/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt;. The previous map was a basic map without any information of any country. Now we are going to create world population map showing low, medium and high population countries with different colors. &lt;/p&gt;
+      <description>&lt;p&gt;In my previous blog &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/blog1-basic-map/&quot;&gt;Basic map with geojson2svg&lt;/a&gt; we have seen that how easily we can create svg world map using &lt;a href=&quot;https://github.com/gagan-bansal/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt;. The previous map was a basic map without any information of any country. Now we are going to create world population map showing low, medium and high population countries with different colors. &lt;/p&gt;
 &lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;
 &lt;p&gt;First I am showing the output, countries population thematic map color-coded as low, medium and high.&lt;/p&gt;
 &lt;p&gt;&lt;ul id=&quot;legend&quot;&gt;
@@ -830,7 +830,7 @@ Australia                     0            0        167      0               61 
 &lt;span class=&quot;number&quot;&gt;42&lt;/span&gt;     }
 &lt;span class=&quot;number&quot;&gt;43&lt;/span&gt;   );
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In the above code we initialize the &lt;a href=&quot;https://www.npmjs.com/package/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt; instance as explained in the last blog &lt;a href=&quot;http://maps-on-blackboard.com/articles/blog1-basic-map/&quot;&gt;Basic map with geojson2svg&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In the above code we initialize the &lt;a href=&quot;https://www.npmjs.com/package/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt; instance as explained in the last blog &lt;a href=&quot;http://maps-on-blackboard.github.io/articles/blog1-basic-map/&quot;&gt;Basic map with geojson2svg&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Next we categorize every feature according to the population and convert to svg by assigning css class accordingly.&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;number&quot;&gt;44&lt;/span&gt;   &lt;span class=&quot;comment&quot;&gt;// process every feature&lt;/span&gt;
 &lt;span class=&quot;number&quot;&gt;45&lt;/span&gt;   geojson.features.forEach(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(f)&lt;/span&gt; {&lt;/span&gt;
@@ -858,9 +858,9 @@ Australia                     0            0        167      0               61 
     </item>
     <item>
       <title>Basic map with geojson2svg</title>
-      <link>http://maps-on-blackboard.com/articles/blog1-basic-map/</link>
+      <link>http://maps-on-blackboard.github.io/articles/blog1-basic-map/</link>
       <pubDate>Thu, 05 Mar 2015 19:00:00 -0500</pubDate>
-      <guid isPermaLink="true">http://maps-on-blackboard.com/articles/blog1-basic-map/</guid>
+      <guid isPermaLink="true">http://maps-on-blackboard.github.io/articles/blog1-basic-map/</guid>
       <author></author>
       <description>&lt;p&gt;Now a days its very easy to publish a map using online API like Google maps or using open framework OpenLayers or Leaflet with OSM data. Mapbox and CartoDB make the map publishing even more simplified. So where does this tool &lt;a href=&quot;https://github.com/gagan-bansal/geojson2svg&quot;&gt;geojson2svg&lt;/a&gt; stands in mapping domain?&lt;/p&gt;
 &lt;h2 id=&quot;-&quot;&gt; &lt;/h2&gt;

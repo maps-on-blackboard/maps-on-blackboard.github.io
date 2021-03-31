@@ -1,217 +1,217 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://maps-on-blackboard.com</loc>
+    <loc>http://maps-on-blackboard.github.io</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/archive.html</loc>
+    <loc>http://maps-on-blackboard.github.io/archive.html</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/articles/rotate-and-pinch-osm-map-with-geojson-data/</loc>
+    <loc>http://maps-on-blackboard.github.io/articles/rotate-and-pinch-osm-map-with-geojson-data/</loc>
     <lastmod>2015-09-21T00:00:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/articles/background-map/</loc>
+    <loc>http://maps-on-blackboard.github.io/articles/background-map/</loc>
     <lastmod>2015-08-15T00:00:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/articles/can-you-rotate-and-pinch-the-svg-map/</loc>
+    <loc>http://maps-on-blackboard.github.io/articles/can-you-rotate-and-pinch-the-svg-map/</loc>
     <lastmod>2015-08-02T00:00:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/articles/osm-tiles-map-with-rotation/</loc>
+    <loc>http://maps-on-blackboard.github.io/articles/osm-tiles-map-with-rotation/</loc>
     <lastmod>2015-07-19T00:00:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/articles/interactive-map/</loc>
+    <loc>http://maps-on-blackboard.github.io/articles/interactive-map/</loc>
     <lastmod>2015-05-31T00:00:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/articles/web-mercator-tiles-map/</loc>
+    <loc>http://maps-on-blackboard.github.io/articles/web-mercator-tiles-map/</loc>
     <lastmod>2015-04-15T00:00:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/articles/blog2-thematic-map/</loc>
+    <loc>http://maps-on-blackboard.github.io/articles/blog2-thematic-map/</loc>
     <lastmod>2015-03-15T00:00:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/articles/blog1-basic-map/</loc>
+    <loc>http://maps-on-blackboard.github.io/articles/blog1-basic-map/</loc>
     <lastmod>2015-03-06T00:00:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/shperical-mercator</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/shperical-mercator</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/web-mercator</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/web-mercator</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/map-tiles</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/map-tiles</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/osm</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/osm</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/openstreetmap</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/openstreetmap</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/map-the-tiles</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/map-the-tiles</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/map-rotation</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/map-rotation</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/web-mercator-tiles</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/web-mercator-tiles</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/geojson</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/geojson</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/svg</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/svg</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/maps</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/maps</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/geojson2svg</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/geojson2svg</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/thematic-map</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/thematic-map</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/data-visualization</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/data-visualization</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/svg-styling</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/svg-styling</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/symbology</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/symbology</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/rotate-map</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/rotate-map</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/interactive-maps</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/interactive-maps</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/maps-navigation</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/maps-navigation</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/rotate</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/rotate</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/pan</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/pan</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/drag</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/drag</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/pinch</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/pinch</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/zoom</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/zoom</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/emptymapjs</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/emptymapjs</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>http://maps-on-blackboard.com/tag/hammerjs</loc>
+    <loc>http://maps-on-blackboard.github.io/tag/hammerjs</loc>
     <lastmod>2015-09-21T16:45:57.299Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>

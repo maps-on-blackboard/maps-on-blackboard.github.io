@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <title>Maps on Blackboard
     </title>
-    <link rel="alternate" href="http://maps-on-blackboard.com/feed.xml" type="application/rss+xml" title="Learn how to create online maps with lot of flexibility">
+    <link rel="alternate" href="http://maps-on-blackboard.github.io/feed.xml" type="application/rss+xml" title="Learn how to create online maps with lot of flexibility">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="./css/maps.css">
@@ -20,7 +20,7 @@
     <div id="content">
       <div class="content-wrap">
         <article class="article">
-          <section class="content"><p>This article is rewrite of my previous blog <a href="http://maps-on-blackboard.com/articles/web-mercator-tiles-map/">Map of web mercator tiles</a> where I used <a href="https://www.npmjs.com/package/web-mercator-tiles">web-mercator-tiles</a> module to create the <span class="caps">OSM</span> tiles map. I have done two improvements in the new module <a href="https://www.npmjs.com/package/map-the-tiles">map-the-tiles</a>. First it can be used with other projections also, though default is spherical mercator. Second is very exciting, rotated view its quite easy to rotate the map now with this module. We’ll explore in detail the module in this&nbsp;blog.</p>
+          <section class="content"><p>This article is rewrite of my previous blog <a href="http://maps-on-blackboard.github.io/articles/web-mercator-tiles-map/">Map of web mercator tiles</a> where I used <a href="https://www.npmjs.com/package/web-mercator-tiles">web-mercator-tiles</a> module to create the <span class="caps">OSM</span> tiles map. I have done two improvements in the new module <a href="https://www.npmjs.com/package/map-the-tiles">map-the-tiles</a>. First it can be used with other projections also, though default is spherical mercator. Second is very exciting, rotated view its quite easy to rotate the map now with this module. We’ll explore in detail the module in this&nbsp;blog.</p>
 <h2 id="-"> </h2>
 <p>A lot of processing is required to create raster map tiles at back end. Yes there are many steps with many software to generate <span class="caps">OSM</span> tiles with road data. But on the other hand consuming these map tiles is very easy at browser end. We’ll see in this blog how easy it is to display map of required area with raster map tiles in particular for spherical mercator commonly known as web mercator&nbsp;projection. </p>
 <p>Here is the map with spherical mercator projected image tiles using npm module <a href="https://www.npmjs.com/package/map-the-tiles">map-the-tiles</a>. You can change the center, zoom and rotation of this map. In the current example map can not be dragged or zoomed, the idea is to show the calculation of map tiles at proper&nbsp;place.</p>
