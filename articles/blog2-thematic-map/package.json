@@ -36,8 +36,8 @@
   },
   "devDependencies": {
     "browserify": "^9.0.3",
-    "exorcist": "^0.1.6",
-    "http-server": "^0.7.5",
+    "exorcist": "^2.0.0",
+    "http-server": "^14.1.1",
     "uglify": "^0.1.1",
     "watchify": "^2.4.0"
   }
