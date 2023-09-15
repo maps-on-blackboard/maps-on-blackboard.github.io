@@ -35,10 +35,10 @@
     "parse-svg": "^0.0.0"
   },
   "devDependencies": {
-    "browserify": "^9.0.3",
+    "browserify": "^17.0.0",
     "exorcist": "^0.1.6",
     "http-server": "^0.7.5",
     "uglify": "^0.1.1",
-    "watchify": "^2.4.0"
+    "watchify": "^4.0.0"
   }
 }
